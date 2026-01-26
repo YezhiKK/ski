@@ -3,135 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkiWuhan - 武汉滑雪拼车助手</title>
+    <title>SkiWuhan - 实时拼车看板</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .ski-blue { background: #1e40af; }
-        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
-        .custom-shadow { box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1); }
-        /* 弹窗动画 */
         .modal-enter { animation: fadeIn 0.3s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .card-hover:hover { transform: translateY(-4px); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans">
+<body class="bg-slate-50 text-slate-900">
 
     <nav class="ski-blue text-white p-4 sticky top-0 z-50 flex justify-between items-center shadow-lg">
-        <h1 class="text-xl font-black italic tracking-tighter">SKI WUHAN 🏂</h1>
-        <button onclick="toggleModal('publish-modal')" class="bg-white text-blue-800 px-5 py-2 rounded-full text-xs font-black shadow-xl hover:bg-blue-50 transition-all">
-            + 发布拼车
+        <h1 class="text-xl font-black italic tracking-tighter uppercase">Ski Wuhan</h1>
+        <button onclick="toggleModal('publish-modal')" class="bg-white text-blue-800 px-5 py-2 rounded-full text-xs font-black shadow-xl">
+            + 发布行程
         </button>
     </nav>
 
-    <main class="max-w-4xl mx-auto p-4 space-y-8 mt-4">
-        
-        <div class="text-center py-6">
-            <h2 class="text-3xl font-black text-blue-900 mb-2 tracking-tight uppercase">Carpool Feed</h2>
-            <p class="text-xs text-slate-400 font-bold tracking-widest uppercase">实时更新 · 武汉滑雪社群</p>
+    <main class="max-w-4xl mx-auto p-4 space-y-8">
+        <div class="text-center mt-10">
+            <h2 class="text-4xl font-black text-slate-900 mb-2 italic">LIVE FEED</h2>
+            <p class="text-[10px] text-blue-600 font-bold tracking-[0.3em] uppercase">实时同步 GitHub 数据库</p>
         </div>
 
-        <div id="carpool-feed" class="grid gap-4">
-            
-            <div class="bg-white rounded-3xl p-6 custom-shadow border border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div class="space-y-1">
-                    <div class="flex items-center gap-2">
-                        <span class="bg-blue-100 text-blue-700 text-[10px] font-black px-2 py-0.5 rounded-md">江岸出发</span>
-                        <h3 class="font-bold text-lg text-slate-800">甘露山滑雪场</h3>
-                    </div>
-                    <p class="text-sm font-medium text-slate-500 italic">1月27日 (周二) · 08:30 发车</p>
-                    <p class="text-xs text-slate-400">目前剩 <span class="text-blue-600 font-bold">2</span> 座 · 装备可载</p>
-                </div>
-                <button onclick="contactOwner('甘露山车主', 'wx_id_8888')" class="w-full md:w-auto bg-slate-900 text-white px-6 py-3 rounded-2xl text-xs font-bold hover:bg-blue-600 transition-colors">
-                    联系车主
-                </button>
+        <div id="feed-container" class="grid gap-4 min-h-[300px]">
+            <div class="text-center py-20 text-slate-300">
+                <i class="fas fa-circle-notch fa-spin text-3xl"></i>
+                <p class="mt-4 text-xs font-bold tracking-widest uppercase">Fetching Trips...</p>
             </div>
-
-            <div class="bg-blue-50 rounded-3xl p-6 border border-blue-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div class="space-y-1">
-                    <div class="flex items-center gap-2">
-                        <span class="bg-indigo-600 text-white text-[10px] font-black px-2 py-0.5 rounded-md">全城组团</span>
-                        <h3 class="font-bold text-lg text-indigo-900">绿葱坡滑雪场</h3>
-                    </div>
-                    <p class="text-sm font-medium text-indigo-500 italic">2月1日-2月3日 · 三天两夜</p>
-                    <p class="text-xs text-slate-400">大巴往返 · 包含住宿</p>
-                </div>
-                <button onclick="contactOwner('绿葱坡领队', 'Yezkel-21')" class="w-full md:w-auto bg-indigo-600 text-white px-6 py-3 rounded-2xl text-xs font-bold hover:bg-indigo-700 transition-colors">
-                    查询详情
-                </button>
-            </div>
-
         </div>
     </main>
 
-    <div id="publish-modal" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
-        <div class="bg-white rounded-[2.5rem] w-full max-w-md p-8 modal-enter shadow-2xl relative">
-            <button onclick="toggleModal('publish-modal')" class="absolute right-6 top-6 text-slate-300 hover:text-slate-900">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-            <h3 class="text-2xl font-black mb-1 italic text-blue-900">Post a Trip</h3>
-            <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-6 border-b pb-4">填写您的行程信息</p>
+    <div id="publish-modal" class="hidden fixed inset-0 bg-black/70 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-[2.5rem] w-full max-w-md p-8 modal-enter relative">
+            <h3 class="text-2xl font-black mb-1 italic">Post a Trip</h3>
+            <p class="text-[10px] text-slate-400 font-bold mb-6">信息将自动同步至看板</p>
             
-            <form id="carpoolForm" class="space-y-4 text-left">
-                <div>
-                    <label class="text-[10px] font-black text-slate-400 uppercase ml-2">目的地雪场</label>
-                    <select class="w-full bg-slate-50 border-none rounded-2xl p-4 mt-1 text-sm focus:ring-2 focus:ring-blue-500">
-                        <option>甘露山滑雪场</option>
-                        <option>WS热雪奇迹</option>
-                        <option>绿葱坡滑雪场</option>
-                        <option>桃花冲滑雪场</option>
-                    </select>
+            <div class="space-y-4">
+                <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 mb-4">
+                    <p class="text-[11px] text-blue-800 font-bold mb-2 uppercase">发布规范：</p>
+                    <p class="text-[10px] text-blue-600 leading-relaxed">
+                        提交后会跳转至 GitHub 确认，请直接点击绿色 <b>"Submit new issue"</b> 按钮。
+                    </p>
                 </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="text-[10px] font-black text-slate-400 uppercase ml-2">出发地</label>
-                        <input type="text" placeholder="如：江岸区" class="w-full bg-slate-50 border-none rounded-2xl p-4 mt-1 text-sm">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-black text-slate-400 uppercase ml-2">微信号</label>
-                        <input type="text" placeholder="必填" class="w-full bg-slate-50 border-none rounded-2xl p-4 mt-1 text-sm">
-                    </div>
-                </div>
-                <div>
-                    <label class="text-[10px] font-black text-slate-400 uppercase ml-2">发车日期及时间</label>
-                    <input type="text" placeholder="1月27日 08:30" class="w-full bg-slate-50 border-none rounded-2xl p-4 mt-1 text-sm">
-                </div>
-                <button type="button" onclick="submitForm()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-lg shadow-blue-200 mt-4">确认发布</button>
-            </form>
+                <button onclick="goPublish()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-lg">去填写行程信息</button>
+                <button onclick="toggleModal('publish-modal')" class="w-full py-2 text-slate-300 text-xs font-bold uppercase">取消</button>
+            </div>
         </div>
     </div>
 
-    <div id="contact-modal" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
-        <div class="bg-white rounded-[2.5rem] w-full max-w-xs p-8 modal-enter shadow-2xl text-center">
-            <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <i class="fab fa-weixin text-3xl"></i>
+    <div id="contact-modal" class="hidden fixed inset-0 bg-black/70 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-[2.5rem] w-full max-w-xs p-8 modal-enter text-center">
+            <h3 class="font-black text-xl mb-6 text-slate-800">联系车主/领队</h3>
+            <div class="bg-slate-50 py-5 px-2 rounded-2xl border-2 border-dashed border-blue-200 mb-6 font-mono text-2xl font-black text-blue-600 select-all tracking-tighter" id="target-wx">
+                --
             </div>
-            <h3 id="contact-name" class="font-black text-xl mb-1 text-slate-800">车主微信</h3>
-            <p class="text-xs text-slate-400 mb-6 font-medium">添加时请备注：滑雪拼车</p>
-            <div class="bg-slate-50 py-4 px-2 rounded-2xl border-2 border-dashed border-slate-200 mb-6">
-                <span id="contact-wx" class="text-2xl font-black text-blue-600 select-all tracking-tight"></span>
-            </div>
-            <button onclick="toggleModal('contact-modal')" class="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs">我知道了</button>
+            <button onclick="toggleModal('contact-modal')" class="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase">我知道了</button>
         </div>
     </div>
 
     <script>
+        const REPO = 'yezhikk/ski'; // 确认你的仓库路径
+
         function toggleModal(id) {
-            const m = document.getElementById(id);
-            m.classList.toggle('hidden');
+            document.getElementById(id).classList.toggle('hidden');
         }
 
-        function contactOwner(name, wx) {
-            document.getElementById('contact-name').innerText = name;
-            document.getElementById('contact-wx').innerText = wx;
+        function goPublish() {
+            // 预填 Issue 的模板，引导用户输入
+            const template = encodeURIComponent(`【区域】:\n【雪场】:\n【时间】:\n【微信】:`);
+            const url = `https://github.com/${REPO}/issues/new?labels=拼车&title=新行程：雪场-时间&body=${template}`;
+            window.open(url, '_blank');
+        }
+
+        function showWX(wx) {
+            document.getElementById('target-wx').innerText = wx;
             toggleModal('contact-modal');
         }
 
-        function submitForm() {
-            alert('由于 GitHub 是静态空间，数据需由管理员审核同步。\n\n我们将自动为您打开 GitHub Issues 发布窗口，请点击“Submit new issue”完成最后一步。');
-            window.open('https://github.com/yezhikk/ski/issues/new?labels=拼车&title=【拼车】目的地-日期-微信号');
-            toggleModal('publish-modal');
+        // 核心：读取 GitHub Issue 并解析为 Cornell 风格卡片
+        async function loadTrips() {
+            const container = document.getElementById('feed-container');
+            try {
+                const res = await fetch(`https://api.github.com/repos/${REPO}/issues?labels=拼车&state=open`);
+                const issues = await res.json();
+
+                if (issues.length === 0) {
+                    container.innerHTML = '<p class="text-center text-slate-400 py-20 uppercase font-bold tracking-widest text-xs">目前暂无拼车信息</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                issues.forEach(issue => {
+                    // 简单的正则解析：假设微信号写在内容里或标题里
+                    // 你也可以规定用户发布标题格式为：【区域】雪场·时间·微信
+                    const titleParts = issue.title.split('·');
+                    const area = titleParts[0] || '未知区域';
+                    const resort = titleParts[1] || '待定雪场';
+                    const time = titleParts[2] || '近期';
+                    const wx = titleParts[3] || '查看详情';
+
+                    const card = `
+                        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex flex-col md:flex-row justify-between items-center card-hover">
+                            <div class="text-center md:text-left mb-4 md:mb-0">
+                                <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
+                                    <span class="bg-blue-600 text-white text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-tighter">${area}</span>
+                                    <h3 class="font-bold text-lg text-slate-800">${resort}</h3>
+                                </div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest italic">${time}</p>
+                            </div>
+                            <button onclick="showWX('${wx}')" class="bg-slate-900 text-white px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-all">
+                                联系车主
+                            </button>
+                        </div>
+                    `;
+                    container.innerHTML += card;
+                });
+            } catch (err) {
+                container.innerHTML = '<p class="text-center text-red-400 py-20 font-bold">数据加载失败，请刷新重试</p>';
+            }
         }
+
+        window.onload = loadTrips;
     </script>
 </body>
 </html>
