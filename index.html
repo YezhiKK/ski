@@ -3,80 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkiWuhan - 武汉滑雪拼车助手</title>
+    <title>SkiWuhan - 武汉滑雪拼车平台</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .ski-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
-        .modal { display: none; position: fixed; z-index: 50; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
+        .ski-blue { background: #004ecc; }
+        .resort-card:hover { transform: translateY(-3px); transition: all 0.2s; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
-    <nav class="ski-gradient text-white p-4 shadow-lg sticky top-0 z-40">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-black italic italic tracking-tighter">SKI WUHAN ⛷️</h1>
-            <span class="text-xs bg-blue-400 px-2 py-1 rounded">武汉滑雪拼车</span>
-        </div>
+<body class="bg-slate-50 text-slate-900">
+
+    <nav class="ski-blue text-white p-4 sticky top-0 z-50 shadow-md flex justify-between">
+        <h1 class="font-black italic">SKI WUHAN 🏂</h1>
+        <a href="#publish-area" class="text-xs bg-white text-blue-700 px-3 py-1 rounded-full font-bold">我要发布</a>
     </nav>
-    <header class="ski-gradient text-white py-12 px-4 text-center">
-        <h2 class="text-3xl font-bold mb-2 text-white">去雪场，不孤单</h2>
-        <p class="opacity-80 text-sm italic">甘露山 · 武汉冰雪中心 · 桃花冲</p>
-    </header>
-    <main class="container mx-auto px-4 py-8 max-w-4xl">
-        <div class="grid grid-cols-1 gap-6">
-            <div class="bg-white rounded-2xl shadow-md border p-5 flex flex-col md:flex-row justify-between items-center border-l-8 border-l-blue-500">
-                <div class="text-center md:text-left mb-4 md:mb-0">
-                    <h3 class="font-bold text-xl text-blue-900">甘露山滑雪场</h3>
-                    <p class="text-gray-400 text-sm">黄陂区出发 · 约1小时</p>
-                </div>
-                <div class="flex gap-3 w-full md:w-auto">
-                    <button onclick="openModal('查看甘露山拼车群')" class="flex-1 bg-blue-600 text-white px-6 py-3 rounded-xl font-bold">找车主</button>
-                    <button onclick="openModal('发布行程')" class="flex-1 border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-xl font-bold">发空位</button>
-                </div>
+
+    <main class="max-w-4xl mx-auto p-4 space-y-8">
+        
+        <section>
+            <h2 class="font-bold text-gray-400 text-xs mb-3 tracking-widest uppercase text-center">雪场详情指南 (点击查看)</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <button onclick="showInfo('甘露山', '位置：黄陂区盘龙城<br>参数：3条道 (练习/初/中)，落差约70m<br>坡度：初级8°/中级21°')" class="bg-white p-3 rounded-xl shadow-sm resort-card text-sm font-bold border-b-4 border-blue-500">甘露山</button>
+                <button onclick="showInfo('WS热雪奇迹', '位置：武昌梦时代8楼<br>参数：2条道，室内恒温<br>坡度：最大15°')" class="bg-white p-3 rounded-xl shadow-sm resort-card text-sm font-bold border-b-4 border-blue-400">WS热雪</button>
+                <button onclick="showInfo('桃花冲', '位置：黄冈英山<br>参数：高山雪场，约3条道<br>特点：风景绝佳，雪质较硬')" class="bg-white p-3 rounded-xl shadow-sm resort-card text-sm font-bold border-b-4 border-teal-500">桃花冲</button>
+                <button onclick="showInfo('绿葱坡', '位置：恩施巴东 (组团热点)<br>参数：9条雪道，落差150m<br>坡度：最高30° (黑道)')" class="bg-white p-3 rounded-xl shadow-sm resort-card text-sm font-bold border-b-4 border-indigo-600">绿葱坡</button>
+                <button onclick="showInfo('伏牛山', '位置：河南洛阳 (组团热点)<br>参数：室内外结合，中原规模最大')" class="bg-white p-3 rounded-xl shadow-sm resort-card text-sm font-bold border-b-4 border-slate-700">伏牛山</button>
+                <button onclick="showInfo('武汉冰雪中心', '位置：经开区纱帽街<br>参数：室内新手场，交通便捷')" class="bg-white p-3 rounded-xl shadow-sm resort-card text-sm font-bold border-b-4 border-cyan-400">冰雪中心</button>
             </div>
-            <div class="bg-white rounded-2xl shadow-md border p-5 flex flex-col md:flex-row justify-between items-center border-l-8 border-l-cyan-500">
-                <div class="text-center md:text-left mb-4 md:mb-0">
-                    <h3 class="font-bold text-xl text-cyan-700">武汉冰雪中心</h3>
-                    <p class="text-gray-400 text-sm">经开区 · 室内恒温</p>
-                </div>
-                <div class="flex gap-3 w-full md:w-auto">
-                    <button onclick="openModal('查看冰雪中心拼车群')" class="flex-1 bg-cyan-600 text-white px-6 py-3 rounded-xl font-bold">找车主</button>
-                    <button onclick="openModal('发布行程')" class="flex-1 border-2 border-cyan-600 text-cyan-600 px-6 py-3 rounded-xl font-bold">发空位</button>
-                </div>
-            </div>
-            <div class="bg-white rounded-2xl shadow-md border p-5 flex flex-col md:flex-row justify-between items-center border-l-8 border-l-indigo-500">
-                <div class="text-center md:text-left mb-4 md:mb-0">
-                    <h3 class="font-bold text-xl text-indigo-800">桃花冲/英山/神农架</h3>
-                    <p class="text-gray-400 text-sm">周边高山雪场 · 建议组团</p>
-                </div>
-                <div class="flex gap-3 w-full md:w-auto">
-                    <button onclick="openModal('查看长途拼车信息')" class="flex-1 bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold">找车主</button>
-                    <button onclick="openModal('发布行程')" class="flex-1 border-2 border-indigo-600 text-indigo-600 px-6 py-3 rounded-xl font-bold">发空位</button>
-                </div>
-            </div>
-        </div>
-        <div class="mt-8 p-6 bg-blue-50 rounded-2xl text-center shadow-inner">
-            <p class="text-blue-800 font-medium mb-3">官方雪友拼车交流群</p>
-            <button onclick="openModal('扫码进武汉滑雪群')" class="bg-blue-600 text-white px-8 py-4 rounded-full shadow-lg font-bold animate-bounce">
-                <i class="fab fa-weixin mr-2"></i>点击显示联系方式
-            </button>
-        </div>
+        </section>
+
+        <section id="publish-area" class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+            <h2 class="text-xl font-black mb-1">实时拼车看板</h2>
+            <p class="text-xs text-gray-400 mb-6 font-bold uppercase tracking-tighter">请在下方留言框直接发布：[区域+雪场+日期时间+微信号]</p>
+            
+            <script src="https://giscus.app/client.js"
+                data-repo="yezhikk/ski"
+                data-repo-id="这里需要你根据giscus官网生成的id替换"
+                data-category="Announcements"
+                data-category-id="这里需要你根据giscus官网生成的id替换"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="light"
+                data-lang="zh-CN"
+                crossorigin="anonymous"
+                async>
+            </script>
+        </section>
     </main>
-    <div id="contactModal" class="modal flex items-center justify-center p-4">
-        <div class="modal-content bg-white rounded-3xl w-full max-w-xs overflow-hidden shadow-2xl p-6">
-            <div class="text-center">
-                <h3 id="modalTitle" class="font-bold text-lg mb-4"></h3>
-                <div class="bg-slate-100 w-48 h-48 mx-auto rounded-xl flex items-center justify-center border-2 border-dashed border-slate-300 mb-4">
-                    <span class="text-slate-400 text-xs px-4">微信搜：(你的微信号)<br>或上传二维码图片替换</span>
-                </div>
-                <p class="text-gray-500 text-xs mb-6 italic text-center">拼车请备注：滑雪+目的地</p>
-                <button onclick="closeModal()" class="w-full py-3 bg-slate-100 rounded-xl font-bold text-slate-600">返回</button>
-            </div>
+
+    <div id="modal" class="hidden fixed inset-0 bg-black/70 z-[60] flex items-center justify-center p-6 backdrop-blur-md">
+        <div class="bg-white rounded-3xl w-full max-w-xs p-6 overflow-hidden shadow-2xl">
+            <h3 id="m-title" class="font-black text-xl mb-4 text-blue-900 border-b pb-2"></h3>
+            <div id="m-body" class="text-sm text-gray-600 leading-relaxed space-y-2 mb-6"></div>
+            <button onclick="closeModal()" class="w-full bg-blue-600 text-white py-3 rounded-2xl font-bold shadow-lg">知道了</button>
         </div>
     </div>
+
     <script>
-        function openModal(t) { document.getElementById('modalTitle').innerText = t; document.getElementById('contactModal').style.display = 'flex'; }
-        function closeModal() { document.getElementById('contactModal').style.display = 'none'; }
+        function showInfo(title, body) {
+            document.getElementById('m-title').innerText = title;
+            document.getElementById('m-body').innerHTML = body;
+            document.getElementById('modal').classList.remove('hidden');
+        }
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
     </script>
 </body>
 </html>
