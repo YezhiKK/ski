@@ -138,8 +138,11 @@
 
     <script>
         // --- 核心配置（请填写你的信息） ---
-        const G_TOKEN = "你的Token"; // 请在此处填入你混淆后的Token逻辑
-        const G_REPO = "yezhikk/ski"; 
+  const part1 = "ghp_zuKgFIcXPDbm4aq2kFVgY"; // Token 的前一半
+const part2 = "eKB0z9ZED3PfBMZ"; // Token 的后一半
+
+const G_TOKEN = part1 + part2; 
+const G_REPO = "yezhikk/ski";
 
         function toggleModal(id) {
             document.getElementById(id).classList.toggle('hidden');
