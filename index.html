@@ -3,87 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkiWuhan - 武汉滑雪拼车自助平台</title>
+    <title>SkiWuhan - 武汉滑雪拼车助手</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .ski-blue { background: #004ecc; }
-        .resort-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; background: #f1f5f9; color: #475569; }
+        .ski-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+        .modal { display: none; position: fixed; z-index: 50; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
+        .resort-card { transition: transform 0.2s; border-left: 6px solid #1e3a8a; }
+        .resort-card:hover { transform: scale(1.01); }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 pb-10">
+<body class="bg-slate-50 text-slate-800">
 
-    <nav class="ski-blue text-white p-4 sticky top-0 z-50 shadow-md flex justify-between items-center">
-        <h1 class="font-black italic text-lg tracking-tighter">SKI WUHAN ⛷️</h1>
-        <a href="https://github.com/yezhikk/ski/issues/new?labels=拼车&title=【区域】雪场+日期+时间+剩X座+微信xxx" target="_blank" class="bg-yellow-400 text-blue-900 px-4 py-1 rounded-full text-xs font-bold shadow">
-            + 发布行程
-        </a>
+    <nav class="ski-gradient text-white p-4 shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-black italic tracking-tighter">SKI WUHAN ⛷️</h1>
+            <span class="text-[10px] bg-blue-400/30 px-2 py-1 rounded-full border border-white/20">2026 雪季版</span>
+        </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto p-4 space-y-6">
-        <section class="grid grid-cols-2 md:grid-cols-3 gap-2">
-            <button onclick="showInfo('甘露山', '📍 盘龙城 | 3条道 | 坡度21°')" class="bg-white border p-3 rounded-xl text-xs font-bold shadow-sm hover:bg-blue-50">甘露山详情</button>
-            <button onclick="showInfo('WS热雪', '📍 梦时代8楼 | 2条道 | 室内恒温')" class="bg-white border p-3 rounded-xl text-xs font-bold shadow-sm hover:bg-blue-50">WS热雪详情</button>
-            <button onclick="showInfo('绿葱坡', '📍 恩施巴东 | 9条道 | 建议组团')" class="bg-indigo-50 border p-3 rounded-xl text-xs font-bold shadow-sm text-indigo-700">绿葱坡详情</button>
-        </section>
+    <header class="ski-gradient text-white py-10 px-4 text-center">
+        <h2 class="text-3xl font-bold mb-2 text-white">去雪场，不孤单</h2>
+        <p class="opacity-80 text-sm">武汉全区域 · 拼车组团一站式平台</p>
+    </header>
 
-        <section>
-            <h2 class="font-bold text-gray-800 mb-4 flex items-center">
-                <span class="w-1.5 h-5 ski-blue rounded-full mr-2"></span> 实时拼车看板
-            </h2>
-            <div id="issue-list" class="space-y-3">
-                <p class="text-center text-gray-400 py-10 text-sm">正在加载最新拼车信息...</p>
+    <main class="container mx-auto px-4 py-8 max-w-4xl space-y-6">
+        
+        <h2 class="font-bold text-blue-900 flex items-center"><i class="fas fa-car mr-2"></i> 市内/近郊拼车</h2>
+        <div class="grid grid-cols-1 gap-4">
+            <div class="resort-card bg-white rounded-2xl shadow-md p-5 flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <h3 class="font-bold text-xl text-blue-900">甘露山滑雪场</h3>
+                    <p class="text-gray-400 text-xs mt-1">📍 黄陂区盘龙城 · 3条雪道 · 坡度21°</p>
+                </div>
+                <div class="flex gap-3 w-full md:w-auto">
+                    <button onclick="openModal('甘露山', '你的腾讯文档链接')" class="flex-1 bg-blue-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg">找车/发帖</button>
+                </div>
             </div>
-        </section>
+
+            <div class="resort-card bg-white rounded-2xl shadow-md p-5 flex flex-col md:flex-row justify-between items-center" style="border-left-color: #3b82f6;">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <h3 class="font-bold text-xl text-blue-800">WS热雪奇迹</h3>
+                    <p class="text-gray-400 text-xs mt-1">📍 武昌梦时代8楼 · 室内恒温 · 地铁直达</p>
+                </div>
+                <div class="flex gap-3 w-full md:w-auto">
+                    <button onclick="openModal('WS热雪', '你的腾讯文档链接')" class="flex-1 bg-blue-500 text-white px-8 py-3 rounded-xl font-bold shadow-lg">找车/发帖</button>
+                </div>
+            </div>
+
+            <div class="resort-card bg-white rounded-2xl shadow-md p-5 flex flex-col md:flex-row justify-between items-center" style="border-left-color: #0ea5e9;">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <h3 class="font-bold text-xl text-cyan-800">武汉冰雪中心</h3>
+                    <p class="text-gray-400 text-xs mt-1">📍 经开区纱帽街 · 室内练习场 · 适合新手</p>
+                </div>
+                <div class="flex gap-3 w-full md:w-auto">
+                    <button onclick="openModal('冰雪中心', '你的腾讯文档链接')" class="flex-1 bg-cyan-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg">找车/发帖</button>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="font-bold text-indigo-900 flex items-center pt-4"><i class="fas fa-mountain mr-2"></i> 周边高山组团</h2>
+        <div class="grid grid-cols-1 gap-4 text-white">
+            <div class="bg-indigo-900 rounded-2xl shadow-xl p-6 relative overflow-hidden">
+                <div class="relative z-10">
+                    <h3 class="font-bold text-xl mb-1 text-white">恩施绿葱坡滑雪场</h3>
+                    <p class="text-xs opacity-70 mb-4">📍 恩施巴东 · 9条雪道 · 坡度30° · 建议组团</p>
+                    <button onclick="openModal('绿葱坡', '你的腾讯文档链接')" class="w-full bg-white text-indigo-900 py-3 rounded-xl font-bold">查看组团班次</button>
+                </div>
+                <i class="fas fa-snowflake absolute -right-4 -bottom-4 text-7xl opacity-10"></i>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-slate-800 rounded-2xl p-5 shadow-lg">
+                    <h3 class="font-bold text-lg mb-1 text-white">伏牛山滑雪场</h3>
+                    <p class="text-[10px] opacity-60 mb-3">📍 河南洛阳 · 室内外结合 · 中原名场</p>
+                    <button onclick="openModal('伏牛山', '你的腾讯文档链接')" class="w-full bg-slate-700 text-white py-2 rounded-lg text-xs font-bold border border-slate-600">查询组团</button>
+                </div>
+                <div class="bg-blue-900 rounded-2xl p-5 shadow-lg">
+                    <h3 class="font-bold text-lg mb-1 text-white">桃花冲滑雪场</h3>
+                    <p class="text-[10px] opacity-60 mb-3">📍 黄冈英山 · 高山真雪 · 适合自驾拼车</p>
+                    <button onclick="openModal('桃花冲', '你的腾讯文档链接')" class="w-full bg-blue-800 text-white py-2 rounded-lg text-xs font-bold border border-blue-700">查询拼车</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 p-6 bg-blue-50 rounded-2xl text-center border border-blue-100">
+            <p class="text-blue-800 font-bold mb-3 text-sm">有问题或需要进滑雪群？</p>
+            <div class="bg-white px-4 py-3 rounded-xl border-2 border-dashed border-blue-200 inline-block mb-3">
+                <p class="text-xs text-gray-400 mb-1">官方小助手微信号</p>
+                <p class="text-lg font-black text-blue-600 select-all">Yezkel-21</p>
+            </div>
+            <p class="text-[10px] text-gray-400 italic">↑ 长按上方代码可复制微信号</p>
+        </div>
     </main>
 
-    <div id="modal" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-6 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl w-full max-w-xs p-6 shadow-2xl">
-            <h3 id="m-title" class="font-bold text-lg mb-4 text-blue-900 border-b pb-2"></h3>
-            <div id="m-body" class="text-sm text-gray-600 mb-6 leading-relaxed"></div>
-            <button onclick="closeModal()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold">知道了</button>
+    <div id="contactModal" class="modal flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-xs overflow-hidden shadow-2xl p-6">
+            <div class="text-center">
+                <h3 id="modalTitle" class="font-bold text-lg mb-2 text-slate-800"></h3>
+                <p class="text-xs text-gray-500 mb-6 leading-relaxed italic">请在文档内填写或查询：<br>【区域】+ 微信 + 时间</p>
+                <a id="docLink" href="" target="_blank" class="block w-full py-4 bg-blue-600 text-white rounded-2xl font-bold shadow-lg mb-4">打开腾讯文档</a>
+                <button onclick="closeModal()" class="w-full py-2 text-slate-300 font-bold text-sm">返回</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // 核心：从 GitHub 获取数据
-        async function fetchIssues() {
-            const repo = 'yezhikk/ski';
-            const container = document.getElementById('issue-list');
-            
-            try {
-                const response = await fetch(`https://api.github.com/repos/${repo}/issues?labels=拼车&state=open`);
-                const issues = await response.json();
-                
-                if (issues.length === 0) {
-                    container.innerHTML = '<p class="text-center text-gray-400 py-10 text-sm">暂无拼车信息，点击右上角发布第一个！</p>';
-                    return;
-                }
-
-                container.innerHTML = '';
-                issues.forEach(issue => {
-                    const card = `
-                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 relative">
-                            <div class="text-sm font-bold text-blue-900 mb-2">${issue.title}</div>
-                            <div class="text-[11px] text-gray-400 mb-3 font-light">${new Date(issue.created_at).toLocaleString()} 发布</div>
-                            <a href="${issue.html_url}" target="_blank" class="block text-center bg-slate-50 text-blue-600 py-2 rounded-lg text-xs font-bold">查看详情 / 联系车主</a>
-                        </div>
-                    `;
-                    container.innerHTML += card;
-                });
-            } catch (e) {
-                container.innerHTML = '<p class="text-center text-red-400 py-10 text-sm">加载失败，请刷新页面</p>';
-            }
+        function openModal(title, url) {
+            document.getElementById('modalTitle').innerText = title + ' 拼车/组团';
+            document.getElementById('docLink').href = url;
+            document.getElementById('contactModal').style.display = 'flex';
         }
-
-        function showInfo(t, b) {
-            document.getElementById('m-title').innerText = t;
-            document.getElementById('m-body').innerHTML = b;
-            document.getElementById('modal').classList.remove('hidden');
+        function closeModal() {
+            document.getElementById('contactModal').style.display = 'none';
         }
-        function closeModal() { document.getElementById('modal').classList.add('hidden'); }
-        
-        window.onload = fetchIssues;
     </script>
 </body>
 </html>
