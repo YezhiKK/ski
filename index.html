@@ -3,70 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkiWuhan - 实时看板</title>
+    <title>SkiWuhan - 实时拼车看板</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .ski-blue { background: #1e40af; }
-        /* 这里的核心：我们要把 Giscus 的原生评论框样式改掉，让它看起来像卡片流 */
-        iframe.giscus-frame { 
-            border: none; 
-            width: 100%; 
-            min-height: 500px;
-        }
-        .custom-loader { border-top-color: #1e40af; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .card-enter { animation: slideUp 0.4s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .resort-badge { background: #eff6ff; color: #1e40af; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 6px; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
     <nav class="ski-blue text-white p-4 sticky top-0 z-50 flex justify-between items-center shadow-lg">
         <h1 class="text-xl font-black italic tracking-tighter uppercase">Ski Wuhan</h1>
-        <a href="#feed-box" class="bg-white text-blue-800 px-5 py-2 rounded-full text-xs font-black shadow-xl">
-            我要发布
-        </a>
+        <button onclick="publishTrip()" class="bg-white text-blue-800 px-5 py-2 rounded-full text-xs font-black shadow-xl hover:scale-105 transition-transform">
+            + 发布行程
+        </button>
     </nav>
 
-    <main class="max-w-4xl mx-auto p-4 space-y-8">
-        <div class="text-center mt-10">
-            <h2 class="text-4xl font-black text-slate-900 mb-2 italic tracking-tighter text-blue-900">SKIER FEED</h2>
-            <p class="text-[10px] text-slate-400 font-bold tracking-[0.3em] uppercase">无需跳转 · 实时发布</p>
-        </div>
-
-        <div class="bg-white rounded-[2rem] p-8 shadow-xl border border-slate-100 mb-10 text-center">
-            <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-edit text-2xl"></i>
+    <main class="max-w-4xl mx-auto p-4 space-y-6">
+        <div class="text-center py-10">
+            <h2 class="text-4xl font-black text-slate-900 mb-2 italic tracking-tighter">LIVE BOARD</h2>
+            <div class="flex items-center justify-center gap-2">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                <p class="text-[10px] text-slate-400 font-bold tracking-widest uppercase">数据实时同步 GitHub</p>
             </div>
-            <h3 class="font-black text-xl mb-2">如何发布行程？</h3>
-            <p class="text-xs text-slate-400 leading-relaxed max-w-xs mx-auto mb-6">
-                在页面最下方的留言框输入：<br>
-                <span class="text-blue-600 font-bold">【区域】+ 雪场 + 时间 + 微信</span><br>
-                发布后，信息将永久展示在此页面。
-            </p>
         </div>
 
-        <div id="feed-box" class="bg-white rounded-[2rem] p-4 shadow-sm min-h-[600px]">
-            <script src="https://giscus.app/client.js"
-                data-repo="yezhikk/ski"
-                data-repo-id="R_kgDONv609g" 
-                data-category="Announcements"
-                data-category-id="DIC_kwDONv609s4CmfpS"
-                data-mapping="pathname"
-                data-strict="0"
-                data-reactions-enabled="0"
-                data-emit-metadata="0"
-                data-input-position="top"
-                data-theme="light"
-                data-lang="zh-CN"
-                crossorigin="anonymous"
-                async>
-            </script>
+        <div id="feed-container" class="grid gap-4 min-h-[400px]">
+            <div class="text-center py-20 text-slate-300">
+                <i class="fas fa-snowflake fa-spin text-3xl mb-4"></i>
+                <p class="text-[10px] font-bold tracking-widest uppercase">Fetching Latest Trips...</p>
+            </div>
         </div>
     </main>
 
-    <footer class="py-10 text-center">
-        <p class="text-[10px] text-slate-300 font-bold tracking-widest uppercase italic">Powered by Yezkel-21</p>
-    </footer>
+    <div id="contact-modal" class="hidden fixed inset-0 bg-black/70 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-[2.5rem] w-full max-w-xs p-8 text-center shadow-2xl">
+            <h3 class="font-black text-xl mb-6 text-slate-800">联系车主/领队</h3>
+            <div class="bg-slate-50 py-5 px-2 rounded-2xl border-2 border-dashed border-blue-200 mb-6 font-mono text-2xl font-black text-blue-600 select-all" id="target-wx"></div>
+            <button onclick="toggleModal('contact-modal')" class="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest">我知道了</button>
+        </div>
+    </div>
 
+    <script>
+        const REPO = 'yezhikk/ski'; // 你的仓库名
+
+        function toggleModal(id) {
+            document.getElementById(id).classList.toggle('hidden');
+        }
+
+        // 模仿 Cornell 的“自动格式化”发布
+        function publishTrip() {
+            // 预设一个标题模板，告诉用户按这个写
+            const titleTemplate = encodeURIComponent("区域 | 雪场 | 时间 | 微信号");
+            const bodyTemplate = encodeURIComponent("请直接修改上方标题，内容无需填写。直接点绿色的 Submit 按钮即可！");
+            window.open(`https://github.com/${REPO}/issues/new?labels=拼车&title=${titleTemplate}&body=${bodyTemplate}`, '_blank');
+        }
+
+        function showWX(wx) {
+            document.getElementById('target-wx').innerText = wx;
+            toggleModal('contact-modal');
+        }
+
+        // --- 核心：自动抓取 GitHub 数据并渲染成 Cornell 卡片 ---
+        async function loadTrips() {
+            const container = document.getElementById('feed-container');
+            try {
+                // 只抓取带有“拼车”标签且未关闭的 Issue
+                const res = await fetch(`https://api.github.com/repos/${REPO}/issues?labels=拼车&state=open`);
+                const issues = await res.json();
+
+                if (issues.length === 0) {
+                    container.innerHTML = '<p class="text-center text-slate-400 py-20 font-bold uppercase text-xs">暂无信息，快来发布第一个行程！</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                issues.forEach(issue => {
+                    // 解析标题：区域 | 雪场 | 时间 | 微信号
+                    const parts = issue.title.split('|').map(s => s.trim());
+                    if (parts.length < 3) return; // 格式不对则跳过
+
+                    const card = `
+                        <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100 flex flex-col md:flex-row justify-between items-center card-enter hover:shadow-md transition-shadow">
+                            <div class="text-center md:text-left mb-4 md:mb-0">
+                                <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                                    <span class="resort-badge">${parts[0]}出发</span>
+                                    <h3 class="font-black text-lg text-slate-800">${parts[1]}</h3>
+                                </div>
+                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest italic">${parts[2]}</p>
+                            </div>
+                            <button onclick="showWX('${parts[3] || '私信查看'}')" class="bg-blue-600 text-white px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-blue-100 hover:bg-slate-900 transition-colors">
+                                查看微信
+                            </button>
+                        </div>
+                    `;
+                    container.innerHTML += card;
+                });
+            } catch (err) {
+                container.innerHTML = '<p class="text-center text-red-400 py-10">数据同步中，请稍后刷新...</p>';
+            }
+        }
+
+        window.onload = loadTrips;
+    </script>
 </body>
 </html>
