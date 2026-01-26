@@ -3,128 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkiWuhan - 武汉滑雪拼车/组团</title>
+    <title>SkiWuhan - 武汉滑雪拼车自助平台</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .ski-blue { background-color: #0052d9; }
-        .filter-btn.active { background: #0052d9; color: white; }
+        .ski-blue { background: #004ecc; }
+        .resort-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; background: #f1f5f9; color: #475569; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 pb-20">
+<body class="bg-slate-50 text-slate-900 pb-10">
 
-    <nav class="ski-blue text-white p-4 sticky top-0 z-50 flex justify-between items-center shadow-md">
-        <h1 class="text-xl font-black">SKI WUHAN 🏂</h1>
-        <button onclick="openPublish()" class="bg-yellow-400 text-blue-900 px-4 py-1 rounded-full text-xs font-bold shadow">发布行程</button>
+    <nav class="ski-blue text-white p-4 sticky top-0 z-50 shadow-md flex justify-between items-center">
+        <h1 class="font-black italic text-lg tracking-tighter">SKI WUHAN ⛷️</h1>
+        <a href="https://github.com/yezhikk/ski/issues/new?labels=拼车&title=【区域】雪场+日期+时间+剩X座+微信xxx" target="_blank" class="bg-yellow-400 text-blue-900 px-4 py-1 rounded-full text-xs font-bold shadow">
+            + 发布行程
+        </a>
     </nav>
 
-    <div class="bg-white shadow-sm sticky top-[56px] z-40 overflow-x-auto p-3">
-        <div id="filter-container" class="flex space-x-2 text-xs">
-            <button onclick="filterByRegion('全部')" class="filter-btn active border px-3 py-1.5 rounded-full">全部</button>
-            <button onclick="filterByRegion('江岸')" class="filter-btn border px-3 py-1.5 rounded-full">江岸/汉口</button>
-            <button onclick="filterByRegion('武昌')" class="filter-btn border px-3 py-1.5 rounded-full">武昌/光谷</button>
-            <button onclick="filterByRegion('汉阳')" class="filter-btn border px-3 py-1.5 rounded-full">汉阳/经开</button>
-            <button onclick="filterByRegion('东西湖')" class="filter-btn border px-3 py-1.5 rounded-full">东西湖</button>
-        </div>
-    </div>
-
-    <main class="p-4 max-w-4xl mx-auto space-y-6">
-        
-        <section>
-            <h2 class="text-lg font-bold mb-4 text-blue-800 border-l-4 border-blue-600 pl-2">实时拼车信息</h2>
-            <div id="carpool-list" class="grid gap-4">
-                </div>
-            <div id="empty-msg" class="hidden text-center py-10 text-gray-400 text-sm">
-                当前区域暂无有效拼车行程
-            </div>
+    <main class="max-w-4xl mx-auto p-4 space-y-6">
+        <section class="grid grid-cols-2 md:grid-cols-3 gap-2">
+            <button onclick="showInfo('甘露山', '📍 盘龙城 | 3条道 | 坡度21°')" class="bg-white border p-3 rounded-xl text-xs font-bold shadow-sm hover:bg-blue-50">甘露山详情</button>
+            <button onclick="showInfo('WS热雪', '📍 梦时代8楼 | 2条道 | 室内恒温')" class="bg-white border p-3 rounded-xl text-xs font-bold shadow-sm hover:bg-blue-50">WS热雪详情</button>
+            <button onclick="showInfo('绿葱坡', '📍 恩施巴东 | 9条道 | 建议组团')" class="bg-indigo-50 border p-3 rounded-xl text-xs font-bold shadow-sm text-indigo-700">绿葱坡详情</button>
         </section>
 
-        <section class="grid grid-cols-2 gap-3">
-             <div onclick="showResort('甘露山', '位置：黄陂区盘龙城<br>雪道：3条 (练习/初/中)')" class="bg-white p-3 rounded-xl border text-center cursor-pointer">
-                <p class="font-bold text-sm text-blue-900">甘露山详情</p>
-             </div>
-             <div onclick="showResort('绿葱坡', '位置：恩施巴东<br>雪道：9条<br>落差：150m')" class="bg-white p-3 rounded-xl border text-center cursor-pointer">
-                <p class="font-bold text-sm text-indigo-900">绿葱坡详情</p>
-             </div>
+        <section>
+            <h2 class="font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-1.5 h-5 ski-blue rounded-full mr-2"></span> 实时拼车看板
+            </h2>
+            <div id="issue-list" class="space-y-3">
+                <p class="text-center text-gray-400 py-10 text-sm">正在加载最新拼车信息...</p>
+            </div>
         </section>
     </main>
 
-    <div id="infoModal" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-6 backdrop-blur-sm">
+    <div id="modal" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-6 backdrop-blur-sm">
         <div class="bg-white rounded-3xl w-full max-w-xs p-6 shadow-2xl">
-            <h3 id="modalTitle" class="font-bold text-xl mb-4"></h3>
-            <div id="modalBody" class="text-sm text-gray-600 mb-6"></div>
-            <button onclick="closeModal()" class="w-full bg-gray-100 py-3 rounded-xl font-bold">关闭</button>
+            <h3 id="m-title" class="font-bold text-lg mb-4 text-blue-900 border-b pb-2"></h3>
+            <div id="m-body" class="text-sm text-gray-600 mb-6 leading-relaxed"></div>
+            <button onclick="closeModal()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold">知道了</button>
         </div>
     </div>
 
     <script>
-        /**
-         * 1. 在这里手动添加拼车数据
-         * 时间格式必须是: 'YYYY-MM-DD HH:mm'
-         */
-        const carpoolData = [
-            { id: 1, resort: '甘露山', region: '江岸', time: '2026-01-26 23:50', seats: 2, wechat: 'wx123456' },
-            { id: 2, resort: '武汉冰雪中心', region: '汉阳', time: '2026-01-25 08:00', seats: 3, wechat: 'skier_pro' },
-            { id: 3, resort: 'WS热雪奇迹', region: '武昌', time: '2026-01-27 10:00', seats: 1, wechat: 'hello_ski' }
-        ];
-
-        function renderCarpool(filterRegion = '全部') {
-            const listContainer = document.getElementById('carpool-list');
-            const now = new Date();
-            listContainer.innerHTML = '';
+        // 核心：从 GitHub 获取数据
+        async function fetchIssues() {
+            const repo = 'yezhikk/ski';
+            const container = document.getElementById('issue-list');
             
-            let count = 0;
-            carpoolData.forEach(item => {
-                const tourTime = new Date(item.time.replace(/-/g, "/"));
+            try {
+                const response = await fetch(`https://api.github.com/repos/${repo}/issues?labels=拼车&state=open`);
+                const issues = await response.json();
                 
-                // 核心逻辑：只有时间没过，且区域匹配时才显示
-                if (tourTime > now && (filterRegion === '全部' || item.region === filterRegion)) {
-                    count++;
+                if (issues.length === 0) {
+                    container.innerHTML = '<p class="text-center text-gray-400 py-10 text-sm">暂无拼车信息，点击右上角发布第一个！</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                issues.forEach(issue => {
                     const card = `
-                        <div class="bg-white rounded-xl shadow-sm p-4 border-l-4 border-blue-500">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-bold text-gray-800 text-lg">${item.resort}</span>
-                                <span class="bg-blue-100 text-blue-600 text-[10px] px-2 py-0.5 rounded-full font-bold">${item.region}出发</span>
-                            </div>
-                            <div class="text-xs text-gray-500 space-y-1 mb-4">
-                                <p><i class="far fa-clock mr-1"></i> 发车时间：${item.time}</p>
-                                <p><i class="fas fa-chair mr-1"></i> 剩余座位：<span class="text-orange-500 font-bold">${item.seats}</span></p>
-                            </div>
-                            <button onclick="showResort('联系车主', '请添加微信：<br><b class=\'text-lg text-blue-600\'>${item.wechat}</b><br><br>添加时请备注：拼车')" 
-                                    class="w-full bg-blue-600 text-white py-2 rounded-lg text-xs font-bold shadow-sm">
-                                查看车主微信
-                            </button>
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 relative">
+                            <div class="text-sm font-bold text-blue-900 mb-2">${issue.title}</div>
+                            <div class="text-[11px] text-gray-400 mb-3 font-light">${new Date(issue.created_at).toLocaleString()} 发布</div>
+                            <a href="${issue.html_url}" target="_blank" class="block text-center bg-slate-50 text-blue-600 py-2 rounded-lg text-xs font-bold">查看详情 / 联系车主</a>
                         </div>
                     `;
-                    listContainer.innerHTML += card;
-                }
-            });
-
-            document.getElementById('empty-msg').style.display = count === 0 ? 'block' : 'none';
+                    container.innerHTML += card;
+                });
+            } catch (e) {
+                container.innerHTML = '<p class="text-center text-red-400 py-10 text-sm">加载失败，请刷新页面</p>';
+            }
         }
 
-        function filterByRegion(region) {
-            // 更新按钮样式
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.innerText.includes(region));
-            });
-            renderCarpool(region);
+        function showInfo(t, b) {
+            document.getElementById('m-title').innerText = t;
+            document.getElementById('m-body').innerHTML = b;
+            document.getElementById('modal').classList.remove('hidden');
         }
-
-        function openPublish() {
-            showResort('如何发布', '请将您的拼车信息(雪场、区域、时间、剩几座、微信号)发给管理员，或在微信群内发布，我们将为您同步至网页。');
-        }
-
-        function showResort(name, info) {
-            document.getElementById('modalTitle').innerText = name;
-            document.getElementById('modalBody').innerHTML = info;
-            document.getElementById('infoModal').classList.remove('hidden');
-        }
-
-        function closeModal() { document.getElementById('infoModal').classList.add('hidden'); }
-
-        // 页面加载后立即运行一次
-        window.onload = () => renderCarpool();
+        function closeModal() { document.getElementById('modal').classList.add('hidden'); }
+        
+        window.onload = fetchIssues;
     </script>
 </body>
 </html>
