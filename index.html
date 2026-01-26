@@ -3,74 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkiWuhan - 武汉滑雪拼车平台</title>
+    <title>SkiWuhan - 武汉滑雪拼车/组团</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .ski-blue { background: #004ecc; }
-        .resort-card:hover { transform: translateY(-3px); transition: all 0.2s; }
+        .ski-blue { background-color: #0052d9; }
+        .filter-btn.active { background: #0052d9; color: white; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-gray-50 text-gray-800 pb-20">
 
-    <nav class="ski-blue text-white p-4 sticky top-0 z-50 shadow-md flex justify-between">
-        <h1 class="font-black italic">SKI WUHAN 🏂</h1>
-        <a href="#publish-area" class="text-xs bg-white text-blue-700 px-3 py-1 rounded-full font-bold">我要发布</a>
+    <nav class="ski-blue text-white p-4 sticky top-0 z-50 flex justify-between items-center shadow-md">
+        <h1 class="text-xl font-black">SKI WUHAN 🏂</h1>
+        <button onclick="openPublish()" class="bg-yellow-400 text-blue-900 px-4 py-1 rounded-full text-xs font-bold shadow">发布行程</button>
     </nav>
 
-    <main class="max-w-4xl mx-auto p-4 space-y-8">
+    <div class="bg-white shadow-sm sticky top-[56px] z-40 overflow-x-auto p-3">
+        <div id="filter-container" class="flex space-x-2 text-xs">
+            <button onclick="filterByRegion('全部')" class="filter-btn active border px-3 py-1.5 rounded-full">全部</button>
+            <button onclick="filterByRegion('江岸')" class="filter-btn border px-3 py-1.5 rounded-full">江岸/汉口</button>
+            <button onclick="filterByRegion('武昌')" class="filter-btn border px-3 py-1.5 rounded-full">武昌/光谷</button>
+            <button onclick="filterByRegion('汉阳')" class="filter-btn border px-3 py-1.5 rounded-full">汉阳/经开</button>
+            <button onclick="filterByRegion('东西湖')" class="filter-btn border px-3 py-1.5 rounded-full">东西湖</button>
+        </div>
+    </div>
+
+    <main class="p-4 max-w-4xl mx-auto space-y-6">
         
         <section>
-            <h2 class="font-bold text-gray-400 text-xs mb-3 tracking-widest uppercase text-center">雪场详情指南 (点击查看)</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                <button onclick="showInfo('甘露山', '位置：黄陂区盘龙城<br>参数：3条道 (练习/初/中)，落差约70m<br>坡度：初级8°/中级21°')" class="bg-white p-3 rounded-xl shadow-sm resort-card text-sm font-bold border-b-4 border-blue-500">甘露山</button>
-                <button onclick="showInfo('WS热雪奇迹', '位置：武昌梦时代8楼<br>参数：2条道，室内恒温<br>坡度：最大15°')" class="bg-white p-3 rounded-xl shadow-sm resort-card text-sm font-bold border-b-4 border-blue-400">WS热雪</button>
-                <button onclick="showInfo('桃花冲', '位置：黄冈英山<br>参数：高山雪场，约3条道<br>特点：风景绝佳，雪质较硬')" class="bg-white p-3 rounded-xl shadow-sm resort-card text-sm font-bold border-b-4 border-teal-500">桃花冲</button>
-                <button onclick="showInfo('绿葱坡', '位置：恩施巴东 (组团热点)<br>参数：9条雪道，落差150m<br>坡度：最高30° (黑道)')" class="bg-white p-3 rounded-xl shadow-sm resort-card text-sm font-bold border-b-4 border-indigo-600">绿葱坡</button>
-                <button onclick="showInfo('伏牛山', '位置：河南洛阳 (组团热点)<br>参数：室内外结合，中原规模最大')" class="bg-white p-3 rounded-xl shadow-sm resort-card text-sm font-bold border-b-4 border-slate-700">伏牛山</button>
-                <button onclick="showInfo('武汉冰雪中心', '位置：经开区纱帽街<br>参数：室内新手场，交通便捷')" class="bg-white p-3 rounded-xl shadow-sm resort-card text-sm font-bold border-b-4 border-cyan-400">冰雪中心</button>
+            <h2 class="text-lg font-bold mb-4 text-blue-800 border-l-4 border-blue-600 pl-2">实时拼车信息</h2>
+            <div id="carpool-list" class="grid gap-4">
+                </div>
+            <div id="empty-msg" class="hidden text-center py-10 text-gray-400 text-sm">
+                当前区域暂无有效拼车行程
             </div>
         </section>
 
-        <section id="publish-area" class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
-            <h2 class="text-xl font-black mb-1">实时拼车看板</h2>
-            <p class="text-xs text-gray-400 mb-6 font-bold uppercase tracking-tighter">请在下方留言框直接发布：[区域+雪场+日期时间+微信号]</p>
-            
-            <script src="https://giscus.app/client.js"
-                data-repo="yezhikk/ski"
-                data-repo-id="这里需要你根据giscus官网生成的id替换"
-                data-category="Announcements"
-                data-category-id="这里需要你根据giscus官网生成的id替换"
-                data-mapping="pathname"
-                data-strict="0"
-                data-reactions-enabled="1"
-                data-emit-metadata="0"
-                data-input-position="top"
-                data-theme="light"
-                data-lang="zh-CN"
-                crossorigin="anonymous"
-                async>
-            </script>
+        <section class="grid grid-cols-2 gap-3">
+             <div onclick="showResort('甘露山', '位置：黄陂区盘龙城<br>雪道：3条 (练习/初/中)')" class="bg-white p-3 rounded-xl border text-center cursor-pointer">
+                <p class="font-bold text-sm text-blue-900">甘露山详情</p>
+             </div>
+             <div onclick="showResort('绿葱坡', '位置：恩施巴东<br>雪道：9条<br>落差：150m')" class="bg-white p-3 rounded-xl border text-center cursor-pointer">
+                <p class="font-bold text-sm text-indigo-900">绿葱坡详情</p>
+             </div>
         </section>
     </main>
 
-    <div id="modal" class="hidden fixed inset-0 bg-black/70 z-[60] flex items-center justify-center p-6 backdrop-blur-md">
-        <div class="bg-white rounded-3xl w-full max-w-xs p-6 overflow-hidden shadow-2xl">
-            <h3 id="m-title" class="font-black text-xl mb-4 text-blue-900 border-b pb-2"></h3>
-            <div id="m-body" class="text-sm text-gray-600 leading-relaxed space-y-2 mb-6"></div>
-            <button onclick="closeModal()" class="w-full bg-blue-600 text-white py-3 rounded-2xl font-bold shadow-lg">知道了</button>
+    <div id="infoModal" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-6 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl w-full max-w-xs p-6 shadow-2xl">
+            <h3 id="modalTitle" class="font-bold text-xl mb-4"></h3>
+            <div id="modalBody" class="text-sm text-gray-600 mb-6"></div>
+            <button onclick="closeModal()" class="w-full bg-gray-100 py-3 rounded-xl font-bold">关闭</button>
         </div>
     </div>
 
     <script>
-        function showInfo(title, body) {
-            document.getElementById('m-title').innerText = title;
-            document.getElementById('m-body').innerHTML = body;
-            document.getElementById('modal').classList.remove('hidden');
+        /**
+         * 1. 在这里手动添加拼车数据
+         * 时间格式必须是: 'YYYY-MM-DD HH:mm'
+         */
+        const carpoolData = [
+            { id: 1, resort: '甘露山', region: '江岸', time: '2026-01-26 23:50', seats: 2, wechat: 'wx123456' },
+            { id: 2, resort: '武汉冰雪中心', region: '汉阳', time: '2026-01-25 08:00', seats: 3, wechat: 'skier_pro' },
+            { id: 3, resort: 'WS热雪奇迹', region: '武昌', time: '2026-01-27 10:00', seats: 1, wechat: 'hello_ski' }
+        ];
+
+        function renderCarpool(filterRegion = '全部') {
+            const listContainer = document.getElementById('carpool-list');
+            const now = new Date();
+            listContainer.innerHTML = '';
+            
+            let count = 0;
+            carpoolData.forEach(item => {
+                const tourTime = new Date(item.time.replace(/-/g, "/"));
+                
+                // 核心逻辑：只有时间没过，且区域匹配时才显示
+                if (tourTime > now && (filterRegion === '全部' || item.region === filterRegion)) {
+                    count++;
+                    const card = `
+                        <div class="bg-white rounded-xl shadow-sm p-4 border-l-4 border-blue-500">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-bold text-gray-800 text-lg">${item.resort}</span>
+                                <span class="bg-blue-100 text-blue-600 text-[10px] px-2 py-0.5 rounded-full font-bold">${item.region}出发</span>
+                            </div>
+                            <div class="text-xs text-gray-500 space-y-1 mb-4">
+                                <p><i class="far fa-clock mr-1"></i> 发车时间：${item.time}</p>
+                                <p><i class="fas fa-chair mr-1"></i> 剩余座位：<span class="text-orange-500 font-bold">${item.seats}</span></p>
+                            </div>
+                            <button onclick="showResort('联系车主', '请添加微信：<br><b class=\'text-lg text-blue-600\'>${item.wechat}</b><br><br>添加时请备注：拼车')" 
+                                    class="w-full bg-blue-600 text-white py-2 rounded-lg text-xs font-bold shadow-sm">
+                                查看车主微信
+                            </button>
+                        </div>
+                    `;
+                    listContainer.innerHTML += card;
+                }
+            });
+
+            document.getElementById('empty-msg').style.display = count === 0 ? 'block' : 'none';
         }
-        function closeModal() {
-            document.getElementById('modal').classList.add('hidden');
+
+        function filterByRegion(region) {
+            // 更新按钮样式
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.includes(region));
+            });
+            renderCarpool(region);
         }
+
+        function openPublish() {
+            showResort('如何发布', '请将您的拼车信息(雪场、区域、时间、剩几座、微信号)发给管理员，或在微信群内发布，我们将为您同步至网页。');
+        }
+
+        function showResort(name, info) {
+            document.getElementById('modalTitle').innerText = name;
+            document.getElementById('modalBody').innerHTML = info;
+            document.getElementById('infoModal').classList.remove('hidden');
+        }
+
+        function closeModal() { document.getElementById('infoModal').classList.add('hidden'); }
+
+        // 页面加载后立即运行一次
+        window.onload = () => renderCarpool();
     </script>
 </body>
 </html>
