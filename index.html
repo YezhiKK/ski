@@ -141,6 +141,20 @@
         <div class="bg-white rounded-[3rem] w-full max-w-md p-10 shadow-2xl relative">
             <h3 class="text-2xl font-black mb-8 italic text-slate-800 uppercase tracking-tighter">Post Trip</h3>
             <form id="carpoolForm" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+    <div class="relative group">
+        <input type="date" id="date-input" 
+               class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
+               onclick="this.showPicker()"> 
+        <i class="fas fa-calendar-day absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none group-focus-within:text-blue-500"></i>
+    </div>
+    <div class="relative group">
+        <input type="time" id="time-input" value="08:00"
+               class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
+               onclick="this.showPicker()">
+        <i class="fas fa-clock absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none group-focus-within:text-blue-500"></i>
+    </div>
+</div>
                 <select id="resort" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold">
                     <option>甘露山滑雪场</option><option>WS热雪奇迹</option><option>武汉冰雪中心</option>
                     <option>绿葱坡滑雪场</option><option>桃花冲滑雪场</option><option>伏牛山滑雪场</option>
@@ -210,14 +224,21 @@ const G_REPO = "yezhikk/ski";
             toggleModal('contact-modal');
         }
 
-        async function submitForm() {
-            const btn = document.getElementById('submitBtn');
-            const resort = document.getElementById('resort').value;
-            const area = document.getElementById('area').value;
-            const wechat = document.getElementById('wechat').value;
-           const dateVal = document.getElementById('date-select').value;
-const timeVal = document.getElementById('time-select').value;
-const time = `${dateVal} ${timeVal}`; // 这样存入 GitHub 的就是 "1.27 周二 08:00"
+      async function submitForm() {
+    // ... 其他变量获取 ...
+    const rawDate = document.getElementById('date-input').value; // 得到 "2026-01-27"
+    const timeVal = document.getElementById('time-input').value; // 得到 "08:00"
+
+    if(!rawDate || !timeVal) { alert("请选择日期和时间"); return; }
+
+    // 格式化日期：将 2026-01-27 变为 1.27 周二
+    const d = new Date(rawDate);
+    const weeks = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+    const formattedDate = `${d.getMonth() + 1}.${d.getDate()} ${weeks[d.getDay()]}`;
+    
+    const time = `${formattedDate} ${timeVal}`; // 最终结果：1.27 周二 08:00
+    // ... 后续发送请求的代码保持不变 ...
+}
             const seats = document.getElementById('seats').value;
 
             if(!wechat || !time) { alert("微信号和出发时间是必填项哦！"); return; }
@@ -347,6 +368,17 @@ toggleModal = function(id) {
     if (id === 'publish-modal') refreshDateDropdown();
     originalToggleModal(id);
 }
+                function initCalendar() {
+    const today = new Date().toISOString().split('T')[0];
+    const dateInput = document.getElementById('date-input');
+    if(dateInput) {
+        dateInput.value = today;
+        dateInput.min = today; // 禁止选择过去的日期，很实用！
+    }
+}
+
+// 在你的 window.onload 或 DOMContentLoaded 中调用
+document.addEventListener('DOMContentLoaded', initCalendar);
                 resortList.forEach(r => {
                     const el = document.getElementById(`feed-${r}`);
                     if(el.innerHTML === '') el.innerHTML = '<p class="text-[10px] text-slate-200 font-bold text-center py-6 tracking-widest">NO POSTS</p>';
