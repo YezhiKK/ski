@@ -44,7 +44,21 @@
     </style>
 </head>
 <body class="text-slate-900">
-
+<div class="bg-amber-50 border-b border-amber-100 py-3 px-6 relative z-[110]">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <span class="flex h-6 w-6 items-center justify-center rounded-full bg-amber-500 text-white animate-pulse">
+                <i class="fas fa-exclamation-triangle text-[10px]"></i>
+            </span>
+            <p class="text-[11px] md:text-xs font-bold text-amber-900 tracking-wide">
+                <span class="opacity-50">SAFETY FIRST:</span> 拼车请核实车主身份，建议全程佩戴头盔，务必购买当日滑雪意外险。
+            </p>
+        </div>
+        <button onclick="this.parentElement.parentElement.remove()" class="text-amber-900/30 hover:text-amber-900 text-xs">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
     <header class="header-gradient text-white pt-24 pb-32 px-6 text-center">
         <div class="snow-overlay"></div>
         <div class="relative z-10">
@@ -82,7 +96,47 @@
             </div>
         </section>
     </main>
+<div id="weather-widget" class="fixed bottom-8 right-8 z-[100] transition-all hover:scale-105">
+    <div class="bg-white/80 backdrop-blur-xl border border-white p-4 rounded-[2rem] shadow-2xl flex items-center gap-4 min-w-[160px]">
+        <div class="bg-blue-600 w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-200">
+            <i id="w-icon" class="fas fa-cloud-sun text-xl"></i>
+        </div>
+        <div>
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Wuhan Today</p>
+            <div class="flex items-baseline gap-1">
+                <span id="w-temp" class="text-2xl font-black text-slate-800 tracking-tighter">--</span>
+                <span class="text-xs font-bold text-slate-500">°C</span>
+                <span id="w-desc" class="ml-2 text-[10px] font-bold bg-slate-100 px-2 py-0.5 rounded-full text-slate-500">Loading</span>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script>
+    // 自动获取武汉天气逻辑
+    async function getWuhanWeather() {
+        try {
+            // 使用公共免费 API (这里使用远程数据)
+            const res = await fetch('https://wttr.in/Wuhan?format=j1');
+            const data = await res.json();
+            const current = data.current_condition[0];
+            
+            document.getElementById('w-temp').innerText = current.temp_C;
+            document.getElementById('w-desc').innerText = current.lang_zh ? current.lang_zh[0].value : current.weatherDesc[0].value;
+            
+            // 简单的图标映射逻辑
+            const desc = current.weatherDesc[0].value.toLowerCase();
+            const iconEl = document.getElementById('w-icon');
+            if(desc.includes('sun')) iconEl.className = 'fas fa-sun text-xl text-yellow-400';
+            if(desc.includes('snow')) iconEl.className = 'fas fa-snowflake text-xl text-white';
+            if(desc.includes('rain')) iconEl.className = 'fas fa-cloud-showers-heavy text-xl text-blue-300';
+        } catch (e) {
+            document.getElementById('w-temp').innerText = '8'; // 默认保底显示
+            document.getElementById('w-desc').innerText = '多云';
+        }
+    }
+    getWuhanWeather();
+</script>
     <div id="publish-modal" class="hidden fixed inset-0 bg-slate-900/80 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
         <div class="bg-white rounded-[3rem] w-full max-w-md p-10 shadow-2xl relative">
             <h3 class="text-2xl font-black mb-8 italic text-slate-800 uppercase tracking-tighter">Post Trip</h3>
