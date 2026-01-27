@@ -3,161 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkiWuhan | 2026 拼车看板</title>
+    <title>SkiWuhan | 武汉拼车看板 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
-        .header-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%); position: relative; overflow: hidden; }
-        .snow-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/snow.png'); opacity: 0.2; animation: snowMove 30s linear infinite; }
-        @keyframes snowMove { from { background-position: 0 0; } to { background-position: 500px 1000px; } }
-        .cornell-card { border-radius: 2.5rem; background: #ffffff; transition: all 0.4s ease; border: 1px solid #e2e8f0; }
-        .cornell-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); }
-        .date-box { background: #f1f5f9; border-radius: 14px; width: 50px; height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid #e2e8f0; }
-        .seat-badge { background: #1e40af; color: white; padding: 2px 10px; border-radius: 8px; font-size: 10px; font-weight: 900; letter-spacing: -0.02em; }
-        .loader { border: 2px solid #f3f3f3; border-top: 2px solid #1e40af; border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; }
+        
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        
+        /* 核心渐变背景 */
+        .header-gradient { 
+            background: radial-gradient(circle at top right, #1e40af, #0f172a); 
+            position: relative; 
+            overflow: hidden; 
+        }
+
+        /* 雪花花纹背景 */
+        .snow-pattern {
+            background-image: url('https://www.transparenttextures.com/patterns/snow.png');
+            background-repeat: repeat;
+        }
+
+        /* 标题长条样式 */
+        .section-banner {
+            background: linear-gradient(90deg, #1e3a8a 0%, #1e40af 50%, #1e3a8a 100%);
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.5rem;
+        }
+
+        /* 卡片悬浮 */
+        .cornell-card {
+            border-radius: 2rem;
+            background: #ffffff;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+        .cornell-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+            border-color: #3b82f6;
+        }
+
+        /* 动画 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+
+        .loader {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3b82f6;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="text-slate-900">
 
-    <div class="bg-amber-50 border-b border-amber-100 py-3 px-6 relative z-[110]">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-amber-500 text-white animate-pulse">
-                    <i class="fas fa-exclamation-triangle text-[10px]"></i>
-                </span>
-                <p class="text-[11px] md:text-xs font-bold text-amber-900 tracking-wide">
-                    <span class="opacity-50">SAFETY FIRST:</span> 拼车请核实身份，务必购买滑雪意外险。
-                </p>
+    <header class="header-gradient text-white pt-20 pb-24 px-6 text-center shadow-2xl">
+        <div class="snow-pattern absolute inset-0 opacity-20"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <div class="inline-block px-4 py-1 border border-blue-400/30 rounded-full mb-6 bg-blue-500/10 backdrop-blur-md">
+                <span class="text-[10px] font-black tracking-widest uppercase text-blue-200">2025-2026 Winter Season</span>
             </div>
-            <button onclick="this.parentElement.parentElement.remove()" class="text-amber-900/30 hover:text-amber-900 text-xs"><i class="fas fa-times"></i></button>
-        </div>
-    </div>
+            <h1 class="text-7xl font-black italic tracking-tighter mb-4 uppercase drop-shadow-2xl">Ski <span class="text-blue-400">Wuhan</span></h1>
+            <p class="text-blue-100/60 text-xs font-bold tracking-[0.5em] uppercase mb-12"> 武汉滑雪·全城拼车平台 </p>
+            
+            <div class="grid grid-cols-3 gap-4 max-w-2xl mx-auto mb-12">
+                <div class="bg-white/5 backdrop-blur-md p-4 rounded-3xl border border-white/10 text-center">
+                    <p class="text-[10px] text-blue-300 font-bold uppercase mb-1">今日发布</p>
+                    <p id="stat-count" class="text-2xl font-black italic">--</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-md p-4 rounded-3xl border border-white/10 text-center">
+                    <p class="text-[10px] text-blue-300 font-bold uppercase mb-1">雪场状态</p>
+                    <p class="text-lg font-black italic text-green-400 uppercase">Excellent</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-md p-4 rounded-3xl border border-white/10 text-center">
+                    <p class="text-[10px] text-blue-300 font-bold uppercase mb-1">活跃雪友</p>
+                    <p class="text-2xl font-black italic">1,240+</p>
+                </div>
+            </div>
 
-    <header class="header-gradient text-white pt-24 pb-20 px-6 text-center">
-        <div class="snow-overlay"></div>
-        <div class="relative z-10">
-            <div class="absolute -top-12 right-4 md:right-20 group cursor-default">
-                <span class="text-[10px] font-black tracking-[0.3em] uppercase border-t border-b border-white/30 py-1 text-white/40 transition-all duration-500 group-hover:text-white group-hover:border-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
-                    25-26 雪季
-                </span>
-            </div>
-            <h1 class="text-6xl font-black italic tracking-tighter mb-4 uppercase">Ski Wuhan</h1>
-            <p class="text-blue-100/60 text-xs font-bold tracking-[0.4em] uppercase mb-10"> 武汉滑雪拼车看板 </p>
-            <button onclick="toggleModal('publish-modal')" class="bg-white text-blue-900 px-12 py-5 rounded-2xl font-black shadow-2xl hover:scale-105 transition-all active:scale-95 flex items-center gap-3 mx-auto">
-                <i class="fas fa-plus-circle"></i> 发布行程贴
+            <button onclick="toggleModal('publish-modal')" class="group relative bg-white text-blue-900 px-14 py-5 rounded-2xl font-black shadow-2xl hover:bg-blue-50 transition-all active:scale-95">
+                <i class="fas fa-plus-circle mr-2 group-hover:rotate-90 transition-transform"></i> 立即发布行程贴
             </button>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 pt-12 pb-32 relative z-20 space-y-16">
-        <section>
-            <div class="bg-white/80 backdrop-blur-md inline-flex items-center gap-3 px-6 py-3 rounded-2xl mb-8 shadow-sm border border-white">
-                <i class="fas fa-snowflake text-blue-500 text-xl"></i>
-                <h2 class="text-xl font-black text-slate-800 italic uppercase">室内雪场 / Indoor</h2>
+    <main class="max-w-7xl mx-auto px-6 -mt-12 pb-32 relative z-20">
+        
+        <section class="mb-20">
+            <div class="section-banner mb-10 py-8 px-6 text-center shadow-lg">
+                <div class="snow-pattern absolute inset-0 opacity-10"></div>
+                <div class="relative z-10">
+                    <h2 class="text-2xl md:text-3xl font-black text-white italic tracking-widest uppercase flex items-center justify-center gap-4">
+                        <i class="fas fa-snowflake animate-spin-slow"></i>
+                        室内雪场 · Indoor Resorts
+                        <i class="fas fa-snowflake animate-spin-slow"></i>
+                    </h2>
+                    <p class="text-blue-200/60 text-[10px] font-bold mt-2 tracking-[0.3em]">365 DAYS UNLIMITED SKIING</p>
+                </div>
             </div>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="cornell-card p-8">
-                    <h3 class="text-xl font-black text-slate-800">甘露山滑雪场</h3>
-                    <p class="text-[10px] text-slate-400 font-bold mb-6">武汉·黄陂区</p>
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h3 class="text-xl font-black text-slate-800">甘露山滑雪场</h3>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Huangpi, Wuhan</p>
+                        </div>
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-[10px] font-black">超大室内</span>
+                    </div>
                     <div id="feed-甘露山滑雪场" class="space-y-4"></div>
                 </div>
                 <div class="cornell-card p-8">
-                    <h3 class="text-xl font-black text-slate-800">WS热雪奇迹</h3>
-                    <p class="text-[10px] text-slate-400 font-bold mb-6">武汉·武昌区</p>
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h3 class="text-xl font-black text-slate-800">WS热雪奇迹</h3>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Wuchang, Wuhan</p>
+                        </div>
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-[10px] font-black">城市中心</span>
+                    </div>
                     <div id="feed-WS热雪奇迹" class="space-y-4"></div>
                 </div>
                 <div class="cornell-card p-8">
-                    <h3 class="text-xl font-black text-slate-800">武汉冰雪中心</h3>
-                    <p class="text-[10px] text-slate-400 font-bold mb-6">武汉·经开区</p>
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h3 class="text-xl font-black text-slate-800">武汉冰雪中心</h3>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Hanyang, Wuhan</p>
+                        </div>
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-[10px] font-black">亲子首选</span>
+                    </div>
                     <div id="feed-武汉冰雪中心" class="space-y-4"></div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="bg-white/80 backdrop-blur-md inline-flex items-center gap-3 px-6 py-3 rounded-2xl mb-8 shadow-sm border border-white">
-                <i class="fas fa-mountain text-indigo-500 text-xl"></i>
-                <h2 class="text-xl font-black text-slate-800 italic uppercase">室外雪场 / Outdoor</h2>
+            <div class="section-banner mb-10 py-8 px-6 text-center shadow-lg bg-indigo-900">
+                <div class="snow-pattern absolute inset-0 opacity-10"></div>
+                <div class="relative z-10">
+                    <h2 class="text-2xl md:text-3xl font-black text-white italic tracking-widest uppercase flex items-center justify-center gap-4">
+                        <i class="fas fa-mountain"></i>
+                        室外雪场 · Outdoor Peaks
+                        <i class="fas fa-mountain"></i>
+                    </h2>
+                    <p class="text-indigo-200/60 text-[10px] font-bold mt-2 tracking-[0.3em]">WINTER SEASON ONLY · SEASONAL</p>
+                </div>
             </div>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="cornell-card p-8">
-                    <h3 class="text-xl font-black text-slate-800">绿葱坡滑雪场</h3>
-                    <p class="text-[10px] text-slate-400 font-bold mb-6">恩施·巴东</p>
+                    <h3 class="text-xl font-black text-slate-800 mb-6">绿葱坡滑雪场</h3>
                     <div id="feed-绿葱坡滑雪场" class="space-y-4"></div>
                 </div>
                 <div class="cornell-card p-8">
-                    <h3 class="text-xl font-black text-slate-800">桃花冲滑雪场</h3>
-                    <p class="text-[10px] text-slate-400 font-bold mb-6">黄冈·英山</p>
+                    <h3 class="text-xl font-black text-slate-800 mb-6">桃花冲滑雪场</h3>
                     <div id="feed-桃花冲滑雪场" class="space-y-4"></div>
                 </div>
                 <div class="cornell-card p-8">
-                    <h3 class="text-xl font-black text-slate-800">伏牛山滑雪场</h3>
-                    <p class="text-[10px] text-slate-400 font-bold mb-6">洛阳·栾川</p>
+                    <h3 class="text-xl font-black text-slate-800 mb-6">伏牛山滑雪场</h3>
                     <div id="feed-伏牛山滑雪场" class="space-y-4"></div>
                 </div>
             </div>
         </section>
     </main>
 
-    <div id="weather-widget" class="fixed bottom-8 right-8 z-[100] transition-all hover:scale-105">
-        <div class="bg-white/80 backdrop-blur-xl border border-white p-4 rounded-[2rem] shadow-2xl flex items-center gap-4 min-w-[160px]">
-            <div class="bg-blue-600 w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-lg">
-                <i id="w-icon" class="fas fa-cloud-sun text-xl"></i>
+    <div id="weather-widget" class="fixed bottom-8 left-8 z-[100] animate-float">
+        <div class="bg-white/90 backdrop-blur-xl border border-white p-5 rounded-[2.5rem] shadow-2xl flex items-center gap-4">
+            <div id="weather-icon-bg" class="bg-blue-600 w-14 h-14 rounded-3xl flex items-center justify-center text-white shadow-lg shadow-blue-200">
+                <i id="w-icon" class="fas fa-cloud text-2xl"></i>
             </div>
             <div>
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Wuhan Today</p>
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Wuhan</p>
                 <div class="flex items-baseline gap-1">
-                    <span id="w-temp" class="text-2xl font-black text-slate-800">--</span>
+                    <span id="w-temp" class="text-3xl font-black text-slate-800 tracking-tighter">--</span>
                     <span class="text-xs font-bold text-slate-500">°C</span>
-                    <span id="w-desc" class="ml-2 text-[10px] font-bold bg-slate-100 px-2 py-0.5 rounded-full text-slate-500">加载中</span>
+                    <span id="w-desc" class="ml-2 text-[10px] font-bold bg-blue-50 text-blue-500 px-2 py-0.5 rounded-full">--</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="publish-modal" class="hidden fixed inset-0 bg-slate-900/80 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
-        <div class="bg-white rounded-[3rem] w-full max-w-md p-10 shadow-2xl relative">
-            <h3 class="text-2xl font-black mb-8 italic text-slate-800 uppercase text-center">发布行程招募</h3>
+    <div id="contact-modal" class="hidden fixed inset-0 bg-slate-900/90 z-[200] flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-[3.5rem] w-full max-w-xs p-10 text-center shadow-2xl transform transition-all">
+            <div class="w-24 h-24 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
+                <i class="fas fa-check text-4xl"></i>
+            </div>
+            <h3 id="contact-name" class="font-black text-2xl mb-2 italic text-slate-800 uppercase">车主微信</h3>
+            <div class="bg-slate-50 py-8 px-2 rounded-[2rem] border-2 border-dashed border-green-200 mb-6 group cursor-pointer active:scale-95 transition-all">
+                <span id="contact-wx" class="text-3xl font-black text-blue-700 select-all tracking-tight"></span>
+            </div>
+            <p class="text-[11px] text-green-500 font-black uppercase tracking-widest mb-10 animate-pulse">✨ 已自动复制到剪贴板</p>
+            <button onclick="toggleModal('contact-modal')" class="w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-xl">完成</button>
+        </div>
+    </div>
+
+    <div id="publish-modal" class="hidden fixed inset-0 bg-slate-900/90 z-[200] flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-[3.5rem] w-full max-w-md p-10 shadow-2xl relative">
+            <h3 class="text-3xl font-black mb-10 italic text-slate-800 uppercase text-center tracking-tighter">发布行程 · Post</h3>
             <div class="space-y-4">
                 <div class="grid grid-cols-2 gap-4">
-                    <input type="date" id="date-input" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold" onclick="this.showPicker()"> 
-                    <input type="time" id="time-input" value="08:00" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold" onclick="this.showPicker()">
+                    <div class="bg-slate-50 rounded-2xl p-4">
+                        <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">日期 Date</label>
+                        <input type="date" id="date-input" class="w-full bg-transparent font-bold text-slate-800 outline-none" onclick="this.showPicker()">
+                    </div>
+                    <div class="bg-slate-50 rounded-2xl p-4">
+                        <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">时间 Time</label>
+                        <input type="time" id="time-input" value="08:00" class="w-full bg-transparent font-bold text-slate-800 outline-none" onclick="this.showPicker()">
+                    </div>
                 </div>
-                <select id="resort" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold outline-none cursor-pointer appearance-none">
-                    <option value="" disabled selected>请选择目的地雪场</option>
-                    <option>甘露山滑雪场</option><option>WS热雪奇迹</option><option>武汉冰雪中心</option>
-                    <option>绿葱坡滑雪场</option><option>桃花冲滑雪场</option><option>伏牛山滑雪场</option>
-                </select>
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="text" id="area" placeholder="出发地区" class="bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold">
-                    <select id="seats" class="bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-blue-700">
-                        <option value="剩1座">剩 1 座</option><option value="剩2座">剩 2 座</option>
-                        <option value="剩3座">剩 3 座</option><option value="4座+">4座以上</option>
+                <div class="bg-slate-50 rounded-2xl p-4">
+                    <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">目的地 Resort</label>
+                    <select id="resort" class="w-full bg-transparent font-bold text-slate-800 outline-none appearance-none cursor-pointer">
+                        <option value="" disabled selected>选择雪场</option>
+                        <option>甘露山滑雪场</option><option>WS热雪奇迹</option><option>武汉冰雪中心</option>
+                        <option>绿葱坡滑雪场</option><option>桃花冲滑雪场</option><option>伏牛山滑雪场</option>
                     </select>
                 </div>
-                <input type="text" id="wechat" placeholder="请输入车主微信号 (必填)" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold">
-                <button type="button" onclick="submitForm()" id="submitBtn" class="w-full bg-blue-700 text-white py-5 rounded-2xl font-black shadow-xl mt-4 uppercase">确认发布</button>
-                <button type="button" onclick="toggleModal('publish-modal')" class="w-full text-slate-400 font-bold text-[10px] mt-4 uppercase">取消</button>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-50 rounded-2xl p-4">
+                        <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">出发地 From</label>
+                        <input type="text" id="area" placeholder="如: 洪山区" class="w-full bg-transparent font-bold text-slate-800 outline-none">
+                    </div>
+                    <div class="bg-slate-50 rounded-2xl p-4">
+                        <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">剩余座位 Seats</label>
+                        <select id="seats" class="w-full bg-transparent font-bold text-blue-600 outline-none appearance-none">
+                            <option>剩1座</option><option>剩2座</option><option>剩3座</option><option>4座+</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="bg-slate-50 rounded-2xl p-4">
+                    <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">微信号 WeChat</label>
+                    <input type="text" id="wechat" placeholder="必填" class="w-full bg-transparent font-bold text-slate-800 outline-none">
+                </div>
+                <button type="button" onclick="submitForm()" id="submitBtn" class="w-full bg-blue-600 text-white py-6 rounded-3xl font-black shadow-xl mt-6 uppercase tracking-widest hover:bg-blue-700 transition-all">发布我的行程</button>
+                <button onclick="toggleModal('publish-modal')" class="w-full text-slate-400 font-bold text-[10px] mt-4 uppercase">取消返回</button>
             </div>
-        </div>
-    </div>
-
-    <div id="contact-modal" class="hidden fixed inset-0 bg-slate-900/80 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-[3rem] w-full max-w-xs p-10 text-center shadow-2xl">
-            <div class="w-20 h-20 bg-green-50 text-green-600 rounded-3xl flex items-center justify-center mx-auto mb-6">
-                <i class="fas fa-check-circle text-4xl"></i>
-            </div>
-            <h3 id="contact-name" class="font-black text-xl mb-2 italic text-slate-800">车主微信号</h3>
-            <div class="bg-slate-50 py-6 px-2 rounded-2xl border-2 border-dashed border-green-100 mb-2">
-                <span id="contact-wx" class="text-2xl font-black text-blue-700 select-all"></span>
-            </div>
-            <p class="text-[10px] text-green-500 font-black uppercase tracking-widest mb-8 animate-pulse">
-                <i class="fas fa-magic mr-1"></i> 已自动复制到剪贴板
-            </p>
-            <button onclick="toggleModal('contact-modal')" class="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase">去微信粘贴</button>
         </div>
     </div>
 
@@ -170,44 +260,32 @@
         function toggleModal(id) { document.getElementById(id).classList.toggle('hidden'); }
 
         function contactOwner(name, wx) {
-            if(!wx || wx === 'undefined') { alert("未留下微信号"); return; }
+            if(!wx || wx === 'undefined') return;
             document.getElementById('contact-name').innerText = name + ' 车主';
             document.getElementById('contact-wx').innerText = wx;
-            
-            // 执行自动复制
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(wx).catch(() => fallbackCopy(wx));
-            } else { fallbackCopy(wx); }
-            
+            navigator.clipboard.writeText(wx).catch(() => {
+                const ta = document.createElement("textarea"); ta.value = wx; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+            });
             toggleModal('contact-modal');
-        }
-
-        function fallbackCopy(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
         }
 
         async function submitForm() {
             const btn = document.getElementById('submitBtn');
-            const resort = document.getElementById('resort').value;
-            const area = document.getElementById('area').value || "未知区域";
-            const wechat = document.getElementById('wechat').value;
-            const seats = document.getElementById('seats').value;
-            const rawDate = document.getElementById('date-input').value; // 格式: YYYY-MM-DD
-            const timeVal = document.getElementById('time-input').value;
+            const data = {
+                resort: document.getElementById('resort').value,
+                area: document.getElementById('area').value || "武汉",
+                wx: document.getElementById('wechat').value,
+                seats: document.getElementById('seats').value,
+                date: document.getElementById('date-input').value,
+                time: document.getElementById('time-input').value
+            };
 
-            if(!rawDate || !wechat || !resort) { alert("目的地、日期和微信必填！"); return; }
-
-            // 存入 GitHub 的标题包含标准日期，方便后续过滤
-            const title = `${area} | ${resort} | ${rawDate} ${timeVal} | ${wechat} | ${seats}`;
-
+            if(!data.date || !data.wx || !data.resort) { alert("请填写完整信息"); return; }
+            
             btn.disabled = true;
             btn.innerHTML = '<span class="loader mx-auto"></span>';
+
+            const title = `${data.area} | ${data.resort} | ${data.date} ${data.time} | ${data.wx} | ${data.seats}`;
 
             try {
                 const res = await fetch(`https://api.github.com/repos/${G_REPO}/issues`, {
@@ -216,52 +294,47 @@
                     body: JSON.stringify({ title: title, labels: ['拼车'] })
                 });
                 if (res.ok) { toggleModal('publish-modal'); loadIssues(); }
-            } catch (err) { alert('发布错误'); }
-            finally { btn.disabled = false; btn.innerText = '确认发布'; }
+            } catch (e) { alert("发布失败"); }
+            finally { btn.disabled = false; btn.innerText = "发布我的行程"; }
         }
 
         async function loadIssues() {
             const resorts = ['甘露山滑雪场', 'WS热雪奇迹', '武汉冰雪中心', '绿葱坡滑雪场', '桃花冲滑雪场', '伏牛山滑雪场'];
-            resorts.forEach(r => {
-                const el = document.getElementById(`feed-${r}`);
-                if(el) el.innerHTML = '<div class="text-center py-4"><span class="loader"></span></div>';
-            });
-
-            // 获取今天的标准日期 (YYYY-MM-DD)
             const todayStr = new Date().toISOString().split('T')[0];
+            let activeCount = 0;
 
             try {
                 const res = await fetch(`https://api.github.com/repos/${G_REPO}/issues?labels=拼车&state=open&t=${Date.now()}`);
                 const issues = await res.json();
+                
                 resorts.forEach(r => { if(document.getElementById(`feed-${r}`)) document.getElementById(`feed-${r}`).innerHTML = ''; });
 
                 issues.forEach(issue => {
                     const parts = issue.title.split('|').map(p => p.trim());
-                    if(parts.length < 4) return;
+                    if(parts.length < 5) return;
                     const [area, resortName, fullTime, wechat, seats] = parts;
+                    const postDate = fullTime.split(' ')[0];
                     
-                    // 核心过滤逻辑：提取出日期部分 YYYY-MM-DD
-                    const postDate = fullTime.split(' ')[0]; 
-                    if (postDate < todayStr) return; // 如果帖子日期早于今天，直接跳过不显示
+                    if (postDate < todayStr) return; 
+                    activeCount++;
 
-                    // 转换为显示友好格式 1.27
                     const dObj = new Date(postDate);
                     const displayDate = `${dObj.getMonth()+1}.${dObj.getDate()}`;
 
                     const card = `
-                        <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-3xl border border-transparent hover:border-blue-100 hover:bg-white transition-all">
-                            <div class="date-box">
-                                <span class="text-[9px] font-black text-slate-400 uppercase leading-none mb-1">Date</span>
-                                <span class="text-[13px] font-black text-blue-600 leading-none">${displayDate}</span>
+                        <div class="flex items-center gap-4 bg-slate-50 p-5 rounded-[1.5rem] border border-transparent hover:border-blue-100 hover:bg-white transition-all group">
+                            <div class="bg-white shadow-sm border border-slate-100 rounded-2xl w-12 h-12 flex flex-col items-center justify-center shrink-0 group-hover:bg-blue-600 transition-colors">
+                                <span class="text-[8px] font-black text-slate-400 uppercase leading-none group-hover:text-blue-200">Date</span>
+                                <span class="text-sm font-black text-blue-600 group-hover:text-white">${displayDate}</span>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center gap-2 mb-1">
-                                    <span class="seat-badge">${seats}</span>
+                                    <span class="bg-blue-600 text-white px-2 py-0.5 rounded-lg text-[9px] font-black">${seats}</span>
                                     <span class="text-[10px] font-bold text-slate-400 truncate">${area}</span>
                                 </div>
-                                <p class="text-sm font-black text-slate-700 truncate">${fullTime.split(' ').slice(1).join(' ')} 出发</p>
+                                <p class="text-xs font-black text-slate-700">${fullTime.split(' ')[1]} 出发</p>
                             </div>
-                            <button onclick="contactOwner('${resortName}', '${wechat}')" class="w-11 h-11 rounded-2xl bg-white border border-slate-200 text-slate-400 hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center shadow-sm">
+                            <button onclick="contactOwner('${resortName}', '${wechat}')" class="w-10 h-10 rounded-xl bg-white border border-slate-200 text-slate-400 hover:bg-slate-900 hover:text-white transition-all flex items-center justify-center shadow-sm">
                                 <i class="fas fa-comment-dots"></i>
                             </button>
                         </div>`;
@@ -269,11 +342,12 @@
                     if(container) container.innerHTML += card;
                 });
 
+                document.getElementById('stat-count').innerText = activeCount;
                 resorts.forEach(r => {
                     const el = document.getElementById(`feed-${r}`);
-                    if(el && el.innerHTML === '') el.innerHTML = '<p class="text-[10px] text-slate-200 font-bold text-center py-6 tracking-widest uppercase">No Active Posts</p>';
+                    if(el && el.innerHTML === '') el.innerHTML = '<div class="py-10 text-center"><p class="text-[10px] font-black text-slate-200 uppercase tracking-widest leading-loose">No active posts<br>waiting for you</p></div>';
                 });
-            } catch (e) { console.error("加载列表失败"); }
+            } catch (e) { console.error("Loading failed"); }
         }
 
         async function getWuhanWeather() {
@@ -282,13 +356,14 @@
                 const data = await res.json();
                 const current = data.current_condition[0];
                 document.getElementById('w-temp').innerText = current.temp_C;
-                document.getElementById('w-desc').innerText = current.lang_zh ? current.lang_zh[0].value : "多云";
-                const iconEl = document.getElementById('w-icon');
+                document.getElementById('w-desc').innerText = current.lang_zh ? current.lang_zh[0].value : "Clear";
+                const iconBg = document.getElementById('weather-icon-bg');
+                const icon = document.getElementById('w-icon');
                 const desc = current.weatherDesc[0].value.toLowerCase();
-                if(desc.includes('sun')) iconEl.className = 'fas fa-sun text-xl text-yellow-400';
-                else if(desc.includes('snow')) iconEl.className = 'fas fa-snowflake text-xl text-white';
-                else iconEl.className = 'fas fa-cloud-sun text-xl text-white';
-            } catch (e) { document.getElementById('w-temp').innerText = '--'; }
+                if(desc.includes('snow')) { iconBg.className = "bg-indigo-500 w-14 h-14 rounded-3xl flex items-center justify-center text-white shadow-lg"; icon.className="fas fa-snowflake text-2xl animate-spin-slow"; }
+                else if(desc.includes('rain')) { iconBg.className = "bg-slate-600 w-14 h-14 rounded-3xl flex items-center justify-center text-white shadow-lg"; icon.className="fas fa-cloud-showers-heavy text-2xl"; }
+                else { iconBg.className = "bg-blue-500 w-14 h-14 rounded-3xl flex items-center justify-center text-white shadow-lg"; icon.className="fas fa-sun text-2xl"; }
+            } catch (e) { }
         }
 
         window.onload = () => {
