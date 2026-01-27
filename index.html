@@ -155,8 +155,8 @@
                 <input type="text" id="wechat" placeholder="请输入车主微信号 (必填)" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold border-2 border-transparent focus:border-blue-500 transition-all">
                <div class="grid grid-cols-2 gap-4">
     <div class="relative">
-        <select id="date-select" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold appearance-none text-slate-700">
-            </select>
+       <select id="date-select" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold appearance-none text-slate-700">
+    </select>
         <i class="fas fa-calendar-alt absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none"></i>
     </div>
     <div class="relative">
@@ -217,7 +217,7 @@ const G_REPO = "yezhikk/ski";
             const wechat = document.getElementById('wechat').value;
            const dateVal = document.getElementById('date-select').value;
 const timeVal = document.getElementById('time-select').value;
-const time = `${dateVal} ${timeVal}`; // 组合成最终存储的时间字符串
+const time = `${dateVal} ${timeVal}`; // 这样存入 GitHub 的就是 "1.27 周二 08:00"
             const seats = document.getElementById('seats').value;
 
             if(!wechat || !time) { alert("微信号和出发时间是必填项哦！"); return; }
@@ -311,7 +311,42 @@ window.onload = function() {
                     const container = document.getElementById(`feed-${resortName}`);
                     if(container) container.innerHTML += card;
                 });
+// 定义自动生成日期的函数
+function refreshDateDropdown() {
+    const dateSelect = document.getElementById('date-select');
+    if (!dateSelect) return; // 如果还没加载到这个元素，先跳过
 
+    dateSelect.innerHTML = ''; // 清空旧内容
+    const weeks = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+    
+    for (let i = 0; i < 7; i++) {
+        const d = new Date();
+        d.setDate(d.getDate() + i);
+        const month = d.getMonth() + 1;
+        const date = d.getDate();
+        const day = weeks[d.getDay()];
+        
+        const dateLabel = `${month}.${date} ${day}`;
+        const option = document.createElement('option');
+        option.value = dateLabel;
+        option.text = dateLabel;
+        dateSelect.appendChild(option);
+    }
+}
+
+// 确保 DOM 加载完立刻执行
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', refreshDateDropdown);
+} else {
+    refreshDateDropdown();
+}
+
+// 此外，在打开弹窗的 toggleModal 函数里也加一句，确保万无一失
+const originalToggleModal = toggleModal;
+toggleModal = function(id) {
+    if (id === 'publish-modal') refreshDateDropdown();
+    originalToggleModal(id);
+}
                 resortList.forEach(r => {
                     const el = document.getElementById(`feed-${r}`);
                     if(el.innerHTML === '') el.innerHTML = '<p class="text-[10px] text-slate-200 font-bold text-center py-6 tracking-widest">NO POSTS</p>';
