@@ -29,7 +29,7 @@
                     <i class="fas fa-exclamation-triangle text-[10px]"></i>
                 </span>
                 <p class="text-[11px] md:text-xs font-bold text-amber-900 tracking-wide">
-                    <span class="opacity-50">SAFETY FIRST:</span> 拼车请核实车主身份，建议全程佩戴头盔，务必购买当日滑雪意外险。
+                    <span class="opacity-50">SAFETY FIRST:</span> 拼车请核实车主身份，务必购买当日滑雪意外险。
                 </p>
             </div>
             <button onclick="this.parentElement.parentElement.remove()" class="text-amber-900/30 hover:text-amber-900 text-xs"><i class="fas fa-times"></i></button>
@@ -39,25 +39,20 @@
     <header class="header-gradient text-white pt-24 pb-20 px-6 text-center">
         <div class="snow-overlay"></div>
         <div class="relative z-10">
-            <header class="header-gradient text-white pt-24 pb-32 px-6 text-center">
-    <div class="snow-overlay"></div>
-    <div class="relative z-10">
-    <div class="absolute -top-12 right-4 md:right-20 group cursor-default">
-        <span class="text-[10px] font-black tracking-[0.3em] uppercase border-t border-b border-white/30 py-1 text-white/40 transition-all duration-500 group-hover:text-white group-hover:border-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
-            25-26 雪季
-            </span>
-        </div>
-
-        <h1 class="text-6xl font-black italic tracking-tighter mb-4 uppercase">Ski Wuhan</h1>
-        <p class="text-blue-100/60 text-xs font-bold tracking-[0.4em] uppercase mb-10"> 2026 雪季拼车招募 </p>
-       
+            <div class="absolute -top-12 right-4 md:right-20 group cursor-default">
+                <span class="text-[10px] font-black tracking-[0.3em] uppercase border-t border-b border-white/30 py-1 text-white/40 transition-all duration-500 group-hover:text-white group-hover:border-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+                    25-26 雪季
+                </span>
+            </div>
+            <h1 class="text-6xl font-black italic tracking-tighter mb-4 uppercase">Ski Wuhan</h1>
+            <p class="text-blue-100/60 text-xs font-bold tracking-[0.4em] uppercase mb-10"> 武汉滑雪拼车看板 </p>
             <button onclick="toggleModal('publish-modal')" class="bg-white text-blue-900 px-12 py-5 rounded-2xl font-black shadow-2xl hover:scale-105 transition-all active:scale-95 flex items-center gap-3 mx-auto">
                 <i class="fas fa-plus-circle"></i> 发布行程贴
             </button>
         </div>
     </header>
 
-   <main class="max-w-6xl mx-auto px-6 pt-12 pb-32 relative z-20 space-y-16">
+    <main class="max-w-6xl mx-auto px-6 pt-12 pb-32 relative z-20 space-y-16">
         <section>
             <div class="bg-white/80 backdrop-blur-md inline-flex items-center gap-3 px-6 py-3 rounded-2xl mb-8 shadow-sm border border-white">
                 <i class="fas fa-snowflake text-blue-500 text-xl"></i>
@@ -66,32 +61,17 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="cornell-card p-8">
                     <h3 class="text-xl font-black text-slate-800">甘露山滑雪场</h3>
-                    <div class="flex items-center gap-2 mb-6">
-                        <p class="text-[10px] text-slate-400 font-bold">武汉·黄陂区</p>
-                        <span class="bg-blue-50 text-blue-500 text-[9px] font-black px-2 py-0.5 rounded-full border border-blue-100">
-                            <i class="fas fa-thermometer-half scale-75"></i> 恒温 -5°C
-                        </span>
-                    </div>
+                    <p class="text-[10px] text-slate-400 font-bold mb-6">武汉·黄陂区</p>
                     <div id="feed-甘露山滑雪场" class="space-y-4"></div>
                 </div>
                 <div class="cornell-card p-8">
                     <h3 class="text-xl font-black text-slate-800">WS热雪奇迹</h3>
-                    <div class="flex items-center gap-2 mb-6">
-                        <p class="text-[10px] text-slate-400 font-bold">武汉·武昌区</p>
-                        <span class="bg-blue-50 text-blue-500 text-[9px] font-black px-2 py-0.5 rounded-full border border-blue-100">
-                            <i class="fas fa-thermometer-half scale-75"></i> 恒温 -6°C
-                        </span>
-                    </div>
+                    <p class="text-[10px] text-slate-400 font-bold mb-6">武汉·武昌区</p>
                     <div id="feed-WS热雪奇迹" class="space-y-4"></div>
                 </div>
                 <div class="cornell-card p-8">
                     <h3 class="text-xl font-black text-slate-800">武汉冰雪中心</h3>
-                    <div class="flex items-center gap-2 mb-6">
-                        <p class="text-[10px] text-slate-400 font-bold">武汉·经开区</p>
-                        <span class="bg-blue-50 text-blue-500 text-[9px] font-black px-2 py-0.5 rounded-full border border-blue-100">
-                            <i class="fas fa-thermometer-half scale-75"></i> 恒温 -4°C
-                        </span>
-                    </div>
+                    <p class="text-[10px] text-slate-400 font-bold mb-6">武汉·经开区</p>
                     <div id="feed-武汉冰雪中心" class="space-y-4"></div>
                 </div>
             </div>
@@ -105,32 +85,17 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="cornell-card p-8">
                     <h3 class="text-xl font-black text-slate-800">绿葱坡滑雪场</h3>
-                    <div class="flex items-center gap-2 mb-6">
-                        <p class="text-[10px] text-slate-400 font-bold">恩施·巴东</p>
-                        <span class="bg-orange-50 text-orange-600 text-[9px] font-black px-2 py-0.5 rounded-full border border-orange-100 flex items-center gap-1">
-                            <i class="fas fa-wind scale-75"></i> 实时 <span id="temp-outdoor-1">--°C</span>
-                        </span>
-                    </div>
+                    <p class="text-[10px] text-slate-400 font-bold mb-6">恩施·巴东</p>
                     <div id="feed-绿葱坡滑雪场" class="space-y-4"></div>
                 </div>
                 <div class="cornell-card p-8">
                     <h3 class="text-xl font-black text-slate-800">桃花冲滑雪场</h3>
-                    <div class="flex items-center gap-2 mb-6">
-                        <p class="text-[10px] text-slate-400 font-bold">黄冈·英山</p>
-                        <span class="bg-orange-50 text-orange-600 text-[9px] font-black px-2 py-0.5 rounded-full border border-orange-100 flex items-center gap-1">
-                            <i class="fas fa-wind scale-75"></i> 实时 <span id="temp-outdoor-2">--°C</span>
-                        </span>
-                    </div>
+                    <p class="text-[10px] text-slate-400 font-bold mb-6">黄冈·英山</p>
                     <div id="feed-桃花冲滑雪场" class="space-y-4"></div>
                 </div>
                 <div class="cornell-card p-8">
                     <h3 class="text-xl font-black text-slate-800">伏牛山滑雪场</h3>
-                    <div class="flex items-center gap-2 mb-6">
-                        <p class="text-[10px] text-slate-400 font-bold">洛阳·栾川</p>
-                        <span class="bg-orange-50 text-orange-600 text-[9px] font-black px-2 py-0.5 rounded-full border border-orange-100 flex items-center gap-1">
-                            <i class="fas fa-wind scale-75"></i> 实时 <span id="temp-outdoor-3">--°C</span>
-                        </span>
-                    </div>
+                    <p class="text-[10px] text-slate-400 font-bold mb-6">洛阳·栾川</p>
                     <div id="feed-伏牛山滑雪场" class="space-y-4"></div>
                 </div>
             </div>
@@ -147,7 +112,7 @@
                 <div class="flex items-baseline gap-1">
                     <span id="w-temp" class="text-2xl font-black text-slate-800 tracking-tighter">--</span>
                     <span class="text-xs font-bold text-slate-500">°C</span>
-                    <span id="w-desc" class="ml-2 text-[10px] font-bold bg-slate-100 px-2 py-0.5 rounded-full text-slate-500">Loading</span>
+                    <span id="w-desc" class="ml-2 text-[10px] font-bold bg-slate-100 px-2 py-0.5 rounded-full text-slate-500">加载中</span>
                 </div>
             </div>
         </div>
@@ -156,20 +121,16 @@
     <div id="publish-modal" class="hidden fixed inset-0 bg-slate-900/80 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
         <div class="bg-white rounded-[3rem] w-full max-w-md p-10 shadow-2xl relative">
             <h3 class="text-2xl font-black mb-8 italic text-slate-800 uppercase tracking-tighter text-center">发布行程招募</h3>
-            <div id="carpoolForm" class="space-y-4">
+            <div class="space-y-4">
                 <div class="grid grid-cols-2 gap-4">
                     <input type="date" id="date-input" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-slate-700 outline-none" onclick="this.showPicker()"> 
                     <input type="time" id="time-input" value="08:00" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-slate-700 outline-none" onclick="this.showPicker()">
                 </div>
-               <select id="resort" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-blue-500 transition-all outline-none appearance-none cursor-pointer">
-    <option value="" disabled selected>请选择目的地雪场</option>
-    <option class="text-slate-700">甘露山滑雪场</option>
-    <option class="text-slate-700">WS热雪奇迹</option>
-    <option class="text-slate-700">武汉冰雪中心</option>
-    <option class="text-slate-700">绿葱坡滑雪场</option>
-    <option class="text-slate-700">桃花冲滑雪场</option>
-    <option class="text-slate-700">伏牛山滑雪场</option>
-</select>
+                <select id="resort" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-slate-700 outline-none appearance-none cursor-pointer">
+                    <option value="" disabled selected>请选择目的地雪场</option>
+                    <option>甘露山滑雪场</option><option>WS热雪奇迹</option><option>武汉冰雪中心</option>
+                    <option>绿葱坡滑雪场</option><option>桃花冲滑雪场</option><option>伏牛山滑雪场</option>
+                </select>
                 <div class="grid grid-cols-2 gap-4">
                     <input type="text" id="area" placeholder="出发地区" class="bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold">
                     <select id="seats" class="bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-blue-700">
@@ -177,7 +138,7 @@
                         <option value="剩3座">剩 3 座</option><option value="4座+">4座以上</option>
                     </select>
                 </div>
-                <input type="text" id="wechat" placeholder="请输入车主微信号 (必填)" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="wechat" placeholder="请输入车主微信号 (必填)" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold outline-none">
                 <button type="button" onclick="submitForm()" id="submitBtn" class="w-full bg-blue-700 text-white py-5 rounded-2xl font-black shadow-xl mt-4 uppercase tracking-widest">确认发布行程</button>
                 <button type="button" onclick="toggleModal('publish-modal')" class="w-full text-slate-400 font-bold text-[10px] mt-4 uppercase">取消</button>
             </div>
@@ -186,17 +147,21 @@
 
     <div id="contact-modal" class="hidden fixed inset-0 bg-slate-900/80 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
         <div class="bg-white rounded-[3rem] w-full max-w-xs p-10 text-center shadow-2xl">
-            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6"><i class="fab fa-weixin text-4xl"></i></div>
+            <div class="w-20 h-20 bg-green-50 text-green-600 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-check-circle text-4xl"></i>
+            </div>
             <h3 id="contact-name" class="font-black text-xl mb-2 italic text-slate-800">车主微信号</h3>
-            <div class="bg-slate-50 py-6 px-2 rounded-2xl border-2 border-dashed border-blue-100 mb-8">
+            <div class="bg-slate-50 py-6 px-2 rounded-2xl border-2 border-dashed border-green-100 mb-2">
                 <span id="contact-wx" class="text-2xl font-black text-blue-700 select-all tracking-tight"></span>
             </div>
-            <button onclick="toggleModal('contact-modal')" class="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest">我知道了</button>
+            <p class="text-[10px] text-green-500 font-black uppercase tracking-widest mb-8 animate-pulse">
+                <i class="fas fa-magic mr-1"></i> 已自动复制到剪贴板
+            </p>
+            <button onclick="toggleModal('contact-modal')" class="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest">去微信粘贴</button>
         </div>
     </div>
 
     <script>
-        // --- 请反转填入你的 Token ---
         const part1 = "ghp_zuKgFIcXPDbm4aq2kFVgY"; 
         const part2 = "eKB0z9ZED3PfBMZ";
         const G_TOKEN = part1 + part2; 
@@ -204,49 +169,61 @@
 
         function toggleModal(id) { document.getElementById(id).classList.toggle('hidden'); }
 
+        // 联系车主并自动复制
         function contactOwner(name, wx) {
-            if(!wx || wx === 'undefined') { alert("该车主未留下微信号"); return; }
+            if(!wx || wx === 'undefined' || wx === '') { alert("车主未留下微信号"); return; }
+            
             document.getElementById('contact-name').innerText = name + ' 车主';
             document.getElementById('contact-wx').innerText = wx;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(wx).catch(() => fallbackCopy(wx));
+            } else {
+                fallbackCopy(wx);
+            }
             toggleModal('contact-modal');
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
         }
 
         async function submitForm() {
             const btn = document.getElementById('submitBtn');
             const resort = document.getElementById('resort').value;
-            const area = document.getElementById('area').value;
+            const area = document.getElementById('area').value || "未知区域";
             const wechat = document.getElementById('wechat').value;
             const seats = document.getElementById('seats').value;
             const rawDate = document.getElementById('date-input').value;
             const timeVal = document.getElementById('time-input').value;
 
-            if(!rawDate || !timeVal || !wechat) { alert("日期、时间和微信必填哦！"); return; }
+            if(!rawDate || !wechat || !resort) { alert("目的地、日期和微信必填哦！"); return; }
 
-            // 格式化日期
             const d = new Date(rawDate);
             const weeks = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
             const formattedDate = `${d.getMonth() + 1}.${d.getDate()} ${weeks[d.getDay()]}`;
-            const timeStr = `${formattedDate} ${timeVal}`;
+            const title = `${area} | ${resort} | ${formattedDate} ${timeVal} | ${wechat} | ${seats}`;
 
             btn.disabled = true;
             btn.innerHTML = '<span class="loader mx-auto"></span>';
 
-            const title = `${area} | ${resort} | ${timeStr} | ${wechat} | ${seats}`;
-
             try {
-                const response = await fetch(`https://api.github.com/repos/${G_REPO}/issues`, {
+                const res = await fetch(`https://api.github.com/repos/${G_REPO}/issues`, {
                     method: 'POST',
                     headers: { 'Authorization': `token ${G_TOKEN}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({ title: title, labels: ['拼车'] })
                 });
-                if (response.ok) { 
+                if (res.ok) { 
                     toggleModal('publish-modal');
                     loadIssues();
-                    // 清空表单
-                    document.getElementById('area').value = '';
-                    document.getElementById('wechat').value = '';
-                } else { alert('发布失败，请检查 Token 权限'); }
-            } catch (err) { alert('网络错误'); }
+                } else { alert('发布失败，请检查配置'); }
+            } catch (err) { alert('网络连接错误'); }
             finally { btn.disabled = false; btn.innerText = '确认发布行程'; }
         }
 
@@ -260,7 +237,7 @@
             try {
                 const res = await fetch(`https://api.github.com/repos/${G_REPO}/issues?labels=拼车&state=open&t=${Date.now()}`);
                 const issues = await res.json();
-                resorts.forEach(r => document.getElementById(`feed-${r}`).innerHTML = '');
+                resorts.forEach(r => { if(document.getElementById(`feed-${r}`)) document.getElementById(`feed-${r}`).innerHTML = ''; });
 
                 issues.forEach(issue => {
                     const parts = issue.title.split('|').map(p => p.trim());
@@ -269,105 +246,20 @@
                     const dateTag = time.split(' ')[0] || "1.1";
 
                     const card = `
-                        <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-3xl border border-transparent hover:border-blue-100 hover:bg-white transition-all group">
+                        <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-3xl border border-transparent hover:border-blue-100 hover:bg-white transition-all">
                             <div class="date-box">
                                 <span class="text-[9px] font-black text-slate-400 uppercase leading-none mb-1">Date</span>
                                 <span class="text-[13px] font-black text-blue-600 leading-none">${dateTag}</span>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center gap-2 mb-1">
-                                    <span class="seat-badge">${seats || '有位'}</span>
+                                    <span class="seat-badge">${seats}</span>
                                     <span class="text-[10px] font-bold text-slate-400 truncate">${area}</span>
                                 </div>
                                 <p class="text-sm font-black text-slate-700 truncate">${time}</p>
                             </div>
-                            <button onclick="contactOwner('${resortName}', '${wechat}')" class="w-11 h-11 rounded-2xl bg-white border border-slate-200 text-slate-400 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all flex items-center justify-center shadow-sm">
+                            <button onclick="contactOwner('${resortName}', '${wechat}')" class="w-11 h-11 rounded-2xl bg-white border border-slate-200 text-slate-400 hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center shadow-sm">
                                 <i class="fas fa-comment-dots"></i>
                             </button>
-                        </div>
-                    `;
+                        </div>`;
                     const container = document.getElementById(`feed-${resortName}`);
-                    if(container) container.innerHTML += card;
-                });
-
-                resorts.forEach(r => {
-                    const el = document.getElementById(`feed-${r}`);
-                    if(el && el.innerHTML === '') el.innerHTML = '<p class="text-[10px] text-slate-200 font-bold text-center py-6 tracking-widest">NO POSTS</p>';
-                });
-            } catch (e) { console.error("加载失败:", e); }
-        }
-
-        // 天气
-        async function getWuhanWeather() {
-            try {
-                const res = await fetch('https://wttr.in/Wuhan?format=j1');
-                const data = await res.json();
-                const current = data.current_condition[0];
-                document.getElementById('w-temp').innerText = current.temp_C;
-                document.getElementById('w-desc').innerText = current.lang_zh ? current.lang_zh[0].value : current.weatherDesc[0].value;
-                const desc = current.weatherDesc[0].value.toLowerCase();
-                const iconEl = document.getElementById('w-icon');
-                if(desc.includes('sun')) iconEl.className = 'fas fa-sun text-xl text-yellow-400';
-                else if(desc.includes('snow')) iconEl.className = 'fas fa-snowflake text-xl text-white';
-                else if(desc.includes('rain')) iconEl.className = 'fas fa-cloud-showers-heavy text-xl text-blue-300';
-            } catch (e) {
-                document.getElementById('w-temp').innerText = '8';
-                document.getElementById('w-desc').innerText = '多云';
-            }
-        }
-      async function getOutdoorTemps() {
-    // 使用具体的地区拼音，提高命中率
-    const locations = [
-        { id: 'temp-outdoor-1', city: 'Badong' },    // 绿葱坡
-        { id: 'temp-outdoor-2', city: 'Yingshan' },  // 桃花冲
-        { id: 'temp-outdoor-3', city: 'Luanchuan' }  // 伏牛山
-    ];
-
-    for (const loc of locations) {
-        try {
-            // 添加 format=%t 确保只返回温度，不返回多余天气符号
-            const res = await fetch(`https://wttr.in/${loc.city}?format=%t`);
-            if (!res.ok) throw new Error();
-            let temp = await res.text();
-            
-            const el = document.getElementById(loc.id);
-            if(el) {
-                // 清理多余符号，只保留数字和°C
-                el.innerText = temp.replace('+', '').trim(); 
-            }
-        } catch (e) {
-            console.log(`${loc.city} 温度加载失败`);
-            const el = document.getElementById(loc.id);
-            // 如果接口挂了，显示一个符合雪场气温的体感数值
-            if(el) el.innerText = '-3°C'; 
-        }
-        // 稍微延迟 200ms 请求下一个，防止频率过快
-        await new Promise(resolve => setTimeout(resolve, 200));
-    }
-}
-
-// 在 window.onload 中增加这一行调用
-const originalOnload = window.onload;
-window.onload = () => {
-    if(originalOnload) originalOnload();
-    getWuhanWeather();
-    initCalendar();
-    loadIssues();
-    getOutdoorTemps(); // 新增调用
-};
-
-        // 初始化日期选择器
-        function initCalendar() {
-            const today = new Date().toISOString().split('T')[0];
-            const dateInput = document.getElementById('date-input');
-            if(dateInput) { dateInput.value = today; dateInput.min = today; }
-        }
-
-        window.onload = () => {
-            getWuhanWeather();
-            initCalendar();
-            loadIssues();
-        };
-    </script>
-</body>
-</html>
