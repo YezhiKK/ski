@@ -29,7 +29,7 @@
                     <i class="fas fa-exclamation-triangle text-[10px]"></i>
                 </span>
                 <p class="text-[11px] md:text-xs font-bold text-amber-900 tracking-wide">
-                    <span class="opacity-50">SAFETY FIRST:</span> 拼车请核实车主身份，务必购买当日滑雪意外险。
+                    <span class="opacity-50">SAFETY FIRST:</span> 拼车请核实身份，务必购买滑雪意外险。
                 </p>
             </div>
             <button onclick="this.parentElement.parentElement.remove()" class="text-amber-900/30 hover:text-amber-900 text-xs"><i class="fas fa-times"></i></button>
@@ -104,13 +104,13 @@
 
     <div id="weather-widget" class="fixed bottom-8 right-8 z-[100] transition-all hover:scale-105">
         <div class="bg-white/80 backdrop-blur-xl border border-white p-4 rounded-[2rem] shadow-2xl flex items-center gap-4 min-w-[160px]">
-            <div class="bg-blue-600 w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-200">
+            <div class="bg-blue-600 w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-lg">
                 <i id="w-icon" class="fas fa-cloud-sun text-xl"></i>
             </div>
             <div>
                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Wuhan Today</p>
                 <div class="flex items-baseline gap-1">
-                    <span id="w-temp" class="text-2xl font-black text-slate-800 tracking-tighter">--</span>
+                    <span id="w-temp" class="text-2xl font-black text-slate-800">--</span>
                     <span class="text-xs font-bold text-slate-500">°C</span>
                     <span id="w-desc" class="ml-2 text-[10px] font-bold bg-slate-100 px-2 py-0.5 rounded-full text-slate-500">加载中</span>
                 </div>
@@ -120,13 +120,13 @@
 
     <div id="publish-modal" class="hidden fixed inset-0 bg-slate-900/80 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
         <div class="bg-white rounded-[3rem] w-full max-w-md p-10 shadow-2xl relative">
-            <h3 class="text-2xl font-black mb-8 italic text-slate-800 uppercase tracking-tighter text-center">发布行程招募</h3>
+            <h3 class="text-2xl font-black mb-8 italic text-slate-800 uppercase text-center">发布行程招募</h3>
             <div class="space-y-4">
                 <div class="grid grid-cols-2 gap-4">
-                    <input type="date" id="date-input" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-slate-700 outline-none" onclick="this.showPicker()"> 
-                    <input type="time" id="time-input" value="08:00" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-slate-700 outline-none" onclick="this.showPicker()">
+                    <input type="date" id="date-input" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold" onclick="this.showPicker()"> 
+                    <input type="time" id="time-input" value="08:00" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold" onclick="this.showPicker()">
                 </div>
-                <select id="resort" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-slate-700 outline-none appearance-none cursor-pointer">
+                <select id="resort" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold outline-none cursor-pointer appearance-none">
                     <option value="" disabled selected>请选择目的地雪场</option>
                     <option>甘露山滑雪场</option><option>WS热雪奇迹</option><option>武汉冰雪中心</option>
                     <option>绿葱坡滑雪场</option><option>桃花冲滑雪场</option><option>伏牛山滑雪场</option>
@@ -138,8 +138,8 @@
                         <option value="剩3座">剩 3 座</option><option value="4座+">4座以上</option>
                     </select>
                 </div>
-                <input type="text" id="wechat" placeholder="请输入车主微信号 (必填)" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold outline-none">
-                <button type="button" onclick="submitForm()" id="submitBtn" class="w-full bg-blue-700 text-white py-5 rounded-2xl font-black shadow-xl mt-4 uppercase tracking-widest">确认发布行程</button>
+                <input type="text" id="wechat" placeholder="请输入车主微信号 (必填)" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold">
+                <button type="button" onclick="submitForm()" id="submitBtn" class="w-full bg-blue-700 text-white py-5 rounded-2xl font-black shadow-xl mt-4 uppercase">确认发布</button>
                 <button type="button" onclick="toggleModal('publish-modal')" class="w-full text-slate-400 font-bold text-[10px] mt-4 uppercase">取消</button>
             </div>
         </div>
@@ -152,12 +152,12 @@
             </div>
             <h3 id="contact-name" class="font-black text-xl mb-2 italic text-slate-800">车主微信号</h3>
             <div class="bg-slate-50 py-6 px-2 rounded-2xl border-2 border-dashed border-green-100 mb-2">
-                <span id="contact-wx" class="text-2xl font-black text-blue-700 select-all tracking-tight"></span>
+                <span id="contact-wx" class="text-2xl font-black text-blue-700 select-all"></span>
             </div>
             <p class="text-[10px] text-green-500 font-black uppercase tracking-widest mb-8 animate-pulse">
                 <i class="fas fa-magic mr-1"></i> 已自动复制到剪贴板
             </p>
-            <button onclick="toggleModal('contact-modal')" class="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest">去微信粘贴</button>
+            <button onclick="toggleModal('contact-modal')" class="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase">去微信粘贴</button>
         </div>
     </div>
 
@@ -169,18 +169,16 @@
 
         function toggleModal(id) { document.getElementById(id).classList.toggle('hidden'); }
 
-        // 联系车主并自动复制
         function contactOwner(name, wx) {
-            if(!wx || wx === 'undefined' || wx === '') { alert("车主未留下微信号"); return; }
-            
+            if(!wx || wx === 'undefined') { alert("未留下微信号"); return; }
             document.getElementById('contact-name').innerText = name + ' 车主';
             document.getElementById('contact-wx').innerText = wx;
-
-            if (navigator.clipboard && navigator.clipboard.writeText) {
+            
+            // 执行自动复制
+            if (navigator.clipboard) {
                 navigator.clipboard.writeText(wx).catch(() => fallbackCopy(wx));
-            } else {
-                fallbackCopy(wx);
-            }
+            } else { fallbackCopy(wx); }
+            
             toggleModal('contact-modal');
         }
 
@@ -200,15 +198,13 @@
             const area = document.getElementById('area').value || "未知区域";
             const wechat = document.getElementById('wechat').value;
             const seats = document.getElementById('seats').value;
-            const rawDate = document.getElementById('date-input').value;
+            const rawDate = document.getElementById('date-input').value; // 格式: YYYY-MM-DD
             const timeVal = document.getElementById('time-input').value;
 
-            if(!rawDate || !wechat || !resort) { alert("目的地、日期和微信必填哦！"); return; }
+            if(!rawDate || !wechat || !resort) { alert("目的地、日期和微信必填！"); return; }
 
-            const d = new Date(rawDate);
-            const weeks = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-            const formattedDate = `${d.getMonth() + 1}.${d.getDate()} ${weeks[d.getDay()]}`;
-            const title = `${area} | ${resort} | ${formattedDate} ${timeVal} | ${wechat} | ${seats}`;
+            // 存入 GitHub 的标题包含标准日期，方便后续过滤
+            const title = `${area} | ${resort} | ${rawDate} ${timeVal} | ${wechat} | ${seats}`;
 
             btn.disabled = true;
             btn.innerHTML = '<span class="loader mx-auto"></span>';
@@ -219,12 +215,9 @@
                     headers: { 'Authorization': `token ${G_TOKEN}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({ title: title, labels: ['拼车'] })
                 });
-                if (res.ok) { 
-                    toggleModal('publish-modal');
-                    loadIssues();
-                } else { alert('发布失败，请检查配置'); }
-            } catch (err) { alert('网络连接错误'); }
-            finally { btn.disabled = false; btn.innerText = '确认发布行程'; }
+                if (res.ok) { toggleModal('publish-modal'); loadIssues(); }
+            } catch (err) { alert('发布错误'); }
+            finally { btn.disabled = false; btn.innerText = '确认发布'; }
         }
 
         async function loadIssues() {
@@ -234,6 +227,9 @@
                 if(el) el.innerHTML = '<div class="text-center py-4"><span class="loader"></span></div>';
             });
 
+            // 获取今天的标准日期 (YYYY-MM-DD)
+            const todayStr = new Date().toISOString().split('T')[0];
+
             try {
                 const res = await fetch(`https://api.github.com/repos/${G_REPO}/issues?labels=拼车&state=open&t=${Date.now()}`);
                 const issues = await res.json();
@@ -242,24 +238,66 @@
                 issues.forEach(issue => {
                     const parts = issue.title.split('|').map(p => p.trim());
                     if(parts.length < 4) return;
-                    const [area, resortName, time, wechat, seats] = parts;
-                    const dateTag = time.split(' ')[0] || "1.1";
+                    const [area, resortName, fullTime, wechat, seats] = parts;
+                    
+                    // 核心过滤逻辑：提取出日期部分 YYYY-MM-DD
+                    const postDate = fullTime.split(' ')[0]; 
+                    if (postDate < todayStr) return; // 如果帖子日期早于今天，直接跳过不显示
+
+                    // 转换为显示友好格式 1.27
+                    const dObj = new Date(postDate);
+                    const displayDate = `${dObj.getMonth()+1}.${dObj.getDate()}`;
 
                     const card = `
                         <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-3xl border border-transparent hover:border-blue-100 hover:bg-white transition-all">
                             <div class="date-box">
                                 <span class="text-[9px] font-black text-slate-400 uppercase leading-none mb-1">Date</span>
-                                <span class="text-[13px] font-black text-blue-600 leading-none">${dateTag}</span>
+                                <span class="text-[13px] font-black text-blue-600 leading-none">${displayDate}</span>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center gap-2 mb-1">
                                     <span class="seat-badge">${seats}</span>
                                     <span class="text-[10px] font-bold text-slate-400 truncate">${area}</span>
                                 </div>
-                                <p class="text-sm font-black text-slate-700 truncate">${time}</p>
+                                <p class="text-sm font-black text-slate-700 truncate">${fullTime.split(' ').slice(1).join(' ')} 出发</p>
                             </div>
                             <button onclick="contactOwner('${resortName}', '${wechat}')" class="w-11 h-11 rounded-2xl bg-white border border-slate-200 text-slate-400 hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center shadow-sm">
                                 <i class="fas fa-comment-dots"></i>
                             </button>
                         </div>`;
                     const container = document.getElementById(`feed-${resortName}`);
+                    if(container) container.innerHTML += card;
+                });
+
+                resorts.forEach(r => {
+                    const el = document.getElementById(`feed-${r}`);
+                    if(el && el.innerHTML === '') el.innerHTML = '<p class="text-[10px] text-slate-200 font-bold text-center py-6 tracking-widest uppercase">No Active Posts</p>';
+                });
+            } catch (e) { console.error("加载列表失败"); }
+        }
+
+        async function getWuhanWeather() {
+            try {
+                const res = await fetch('https://wttr.in/Wuhan?format=j1');
+                const data = await res.json();
+                const current = data.current_condition[0];
+                document.getElementById('w-temp').innerText = current.temp_C;
+                document.getElementById('w-desc').innerText = current.lang_zh ? current.lang_zh[0].value : "多云";
+                const iconEl = document.getElementById('w-icon');
+                const desc = current.weatherDesc[0].value.toLowerCase();
+                if(desc.includes('sun')) iconEl.className = 'fas fa-sun text-xl text-yellow-400';
+                else if(desc.includes('snow')) iconEl.className = 'fas fa-snowflake text-xl text-white';
+                else iconEl.className = 'fas fa-cloud-sun text-xl text-white';
+            } catch (e) { document.getElementById('w-temp').innerText = '--'; }
+        }
+
+        window.onload = () => {
+            getWuhanWeather();
+            loadIssues();
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date-input').value = today;
+            document.getElementById('date-input').min = today;
+        };
+    </script>
+</body>
+</html>
