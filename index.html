@@ -153,7 +153,25 @@
                     </select>
                 </div>
                 <input type="text" id="wechat" placeholder="请输入车主微信号 (必填)" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold border-2 border-transparent focus:border-blue-500 transition-all">
-                <input type="text" id="time" placeholder="出发日期 (如: 1.28 周六 08:30)" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold">
+               <div class="grid grid-cols-2 gap-4">
+    <div class="relative">
+        <select id="date-select" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold appearance-none text-slate-700">
+            </select>
+        <i class="fas fa-calendar-alt absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none"></i>
+    </div>
+    <div class="relative">
+        <select id="time-select" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold appearance-none text-slate-700">
+            <option value="06:00">06:00 (早班车)</option>
+            <option value="07:00">07:00</option>
+            <option value="08:00" selected>08:00 (推荐)</option>
+            <option value="09:00">09:00</option>
+            <option value="10:00">10:00</option>
+            <option value="13:00">13:00 (午后场)</option>
+            <option value="18:00">18:00 (夜场)</option>
+        </select>
+        <i class="fas fa-clock absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none"></i>
+    </div>
+</div>
                 <button type="button" onclick="submitForm()" id="submitBtn" class="w-full bg-blue-700 text-white py-5 rounded-2xl font-black shadow-xl mt-4 uppercase tracking-widest">确认发布行程</button>
                 <button type="button" onclick="toggleModal('publish-modal')" class="w-full text-slate-400 font-bold text-[10px] mt-4 uppercase">放弃填写</button>
             </form>
@@ -197,13 +215,36 @@ const G_REPO = "yezhikk/ski";
             const resort = document.getElementById('resort').value;
             const area = document.getElementById('area').value;
             const wechat = document.getElementById('wechat').value;
-            const time = document.getElementById('time').value;
+           const dateVal = document.getElementById('date-select').value;
+const timeVal = document.getElementById('time-select').value;
+const time = `${dateVal} ${timeVal}`; // 组合成最终存储的时间字符串
             const seats = document.getElementById('seats').value;
 
             if(!wechat || !time) { alert("微信号和出发时间是必填项哦！"); return; }
             btn.disabled = true;
             btn.innerHTML = '<span class="loader mx-auto"></span>';
-
+function initDateOptions() {
+    const select = document.getElementById('date-select');
+    const weeks = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+    
+    for (let i = 0; i < 7; i++) {
+        const d = new Date();
+        d.setDate(d.getDate() + i);
+        const month = d.getMonth() + 1;
+        const date = d.getDate();
+        const day = weeks[d.getDay()];
+        
+        const dateStr = `${month}.${date} ${day}`;
+        const option = new Option(dateStr, dateStr);
+        select.add(option);
+    }
+}
+// 在 window.onload 中调用它
+const originalOnload = window.onload;
+window.onload = function() {
+    if(originalOnload) originalOnload();
+    initDateOptions();
+};
             // 存入 GitHub 的格式：区域 | 雪场 | 时间 | 微信 | 座位
             const title = `${area} | ${resort} | ${time} | ${wechat} | ${seats}`;
 
