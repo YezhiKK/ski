@@ -75,10 +75,16 @@
                 <h2 class="text-xl font-black text-slate-800 italic uppercase">室外雪场 / Outdoor</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="cornell-card p-8"><h3 class="text-xl font-black text-slate-800">绿葱坡滑雪场</h3><p class="text-[10px] text-slate-400 font-bold mb-6">恩施·巴东</p><div id="feed-绿葱坡滑雪场" class="space-y-4"></div></div>
-                <div class="cornell-card p-8"><h3 class="text-xl font-black text-slate-800">桃花冲滑雪场</h3><p class="text-[10px] text-slate-400 font-bold mb-6">黄冈·英山</p><div id="feed-桃花冲滑雪场" class="space-y-4"></div></div>
-                <div class="cornell-card p-8"><h3 class="text-xl font-black text-slate-800">伏牛山滑雪场</h3><p class="text-[10px] text-slate-400 font-bold mb-6">洛阳·栾川</p><div id="feed-伏牛山滑雪场" class="space-y-4"></div></div>
-            </div>
+               <div class="cornell-card p-8">
+    <h3 class="text-xl font-black text-slate-800">绿葱坡滑雪场</h3>
+    <div class="flex items-center gap-2 mb-6">
+        <p class="text-[10px] text-slate-400 font-bold">恩施·巴东</p>
+        <span class="bg-orange-50 text-orange-600 text-[9px] font-black px-2 py-0.5 rounded-full border border-orange-100 flex items-center gap-1">
+            <i class="fas fa-wind scale-75"></i> 实时 <span id="temp-outdoor-1">--°C</span>
+        </span>
+    </div>
+    <div id="feed-绿葱坡滑雪场" class="space-y-4"></div>
+</div>
         </section>
     </main>
 
@@ -106,10 +112,15 @@
                     <input type="date" id="date-input" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-slate-700 outline-none" onclick="this.showPicker()"> 
                     <input type="time" id="time-input" value="08:00" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-slate-700 outline-none" onclick="this.showPicker()">
                 </div>
-                <select id="resort" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold">
-                    <option>甘露山滑雪场</option><option>WS热雪奇迹</option><option>武汉冰雪中心</option>
-                    <option>绿葱坡滑雪场</option><option>桃花冲滑雪场</option><option>伏牛山滑雪场</option>
-                </select>
+               <select id="resort" class="w-full bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-blue-500 transition-all outline-none appearance-none cursor-pointer">
+    <option value="" disabled selected>请选择目的地雪场</option>
+    <option class="text-slate-700">甘露山滑雪场</option>
+    <option class="text-slate-700">WS热雪奇迹</option>
+    <option class="text-slate-700">武汉冰雪中心</option>
+    <option class="text-slate-700">绿葱坡滑雪场</option>
+    <option class="text-slate-700">桃花冲滑雪场</option>
+    <option class="text-slate-700">伏牛山滑雪场</option>
+</select>
                 <div class="grid grid-cols-2 gap-4">
                     <input type="text" id="area" placeholder="出发地区" class="bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold">
                     <select id="seats" class="bg-slate-100 border-none rounded-2xl p-4 text-sm font-bold text-blue-700">
@@ -255,6 +266,36 @@
                 document.getElementById('w-desc').innerText = '多云';
             }
         }
+        async function getOutdoorTemps() {
+    // 定义室外雪场对应的城市
+    const locations = [
+        { id: 'temp-outdoor-1', city: 'Enshi' }, // 绿葱坡
+        { id: 'temp-outdoor-2', city: 'Huanggang' }, // 桃花冲
+        { id: 'temp-outdoor-3', city: 'Luoyang' } // 伏牛山
+    ];
+
+    locations.forEach(async (loc) => {
+        try {
+            const res = await fetch(`https://wttr.in/${loc.city}?format=%t`);
+            const temp = await res.text();
+            const el = document.getElementById(loc.id);
+            if(el) el.innerText = temp.replace('+', ''); 
+        } catch (e) {
+            const el = document.getElementById(loc.id);
+            if(el) el.innerText = '-2°C'; // 失败时的保底显示
+        }
+    });
+}
+
+// 在 window.onload 中增加这一行调用
+const originalOnload = window.onload;
+window.onload = () => {
+    if(originalOnload) originalOnload();
+    getWuhanWeather();
+    initCalendar();
+    loadIssues();
+    getOutdoorTemps(); // 新增调用
+};
 
         // 初始化日期选择器
         function initCalendar() {
