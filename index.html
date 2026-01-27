@@ -57,34 +57,83 @@
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 pt-12 pb-32 relative z-20 space-y-16">
+   <main class="max-w-6xl mx-auto px-6 pt-12 pb-32 relative z-20 space-y-16">
         <section>
             <div class="bg-white/80 backdrop-blur-md inline-flex items-center gap-3 px-6 py-3 rounded-2xl mb-8 shadow-sm border border-white">
                 <i class="fas fa-snowflake text-blue-500 text-xl"></i>
                 <h2 class="text-xl font-black text-slate-800 italic uppercase">室内雪场 / Indoor</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="cornell-card p-8"><h3 class="text-xl font-black text-slate-800">甘露山滑雪场</h3><p class="text-[10px] text-slate-400 font-bold mb-6">武汉·黄陂区</p><div id="feed-甘露山滑雪场" class="space-y-4"></div></div>
-                <div class="cornell-card p-8"><h3 class="text-xl font-black text-slate-800">WS热雪奇迹</h3><p class="text-[10px] text-slate-400 font-bold mb-6">武汉·武昌区</p><div id="feed-WS热雪奇迹" class="space-y-4"></div></div>
-                <div class="cornell-card p-8"><h3 class="text-xl font-black text-slate-800">武汉冰雪中心</h3><p class="text-[10px] text-slate-400 font-bold mb-6">武汉·经开区</p><div id="feed-武汉冰雪中心" class="space-y-4"></div></div>
+                <div class="cornell-card p-8">
+                    <h3 class="text-xl font-black text-slate-800">甘露山滑雪场</h3>
+                    <div class="flex items-center gap-2 mb-6">
+                        <p class="text-[10px] text-slate-400 font-bold">武汉·黄陂区</p>
+                        <span class="bg-blue-50 text-blue-500 text-[9px] font-black px-2 py-0.5 rounded-full border border-blue-100">
+                            <i class="fas fa-thermometer-half scale-75"></i> 恒温 -5°C
+                        </span>
+                    </div>
+                    <div id="feed-甘露山滑雪场" class="space-y-4"></div>
+                </div>
+                <div class="cornell-card p-8">
+                    <h3 class="text-xl font-black text-slate-800">WS热雪奇迹</h3>
+                    <div class="flex items-center gap-2 mb-6">
+                        <p class="text-[10px] text-slate-400 font-bold">武汉·武昌区</p>
+                        <span class="bg-blue-50 text-blue-500 text-[9px] font-black px-2 py-0.5 rounded-full border border-blue-100">
+                            <i class="fas fa-thermometer-half scale-75"></i> 恒温 -6°C
+                        </span>
+                    </div>
+                    <div id="feed-WS热雪奇迹" class="space-y-4"></div>
+                </div>
+                <div class="cornell-card p-8">
+                    <h3 class="text-xl font-black text-slate-800">武汉冰雪中心</h3>
+                    <div class="flex items-center gap-2 mb-6">
+                        <p class="text-[10px] text-slate-400 font-bold">武汉·经开区</p>
+                        <span class="bg-blue-50 text-blue-500 text-[9px] font-black px-2 py-0.5 rounded-full border border-blue-100">
+                            <i class="fas fa-thermometer-half scale-75"></i> 恒温 -4°C
+                        </span>
+                    </div>
+                    <div id="feed-武汉冰雪中心" class="space-y-4"></div>
+                </div>
             </div>
         </section>
+
         <section>
             <div class="bg-white/80 backdrop-blur-md inline-flex items-center gap-3 px-6 py-3 rounded-2xl mb-8 shadow-sm border border-white">
                 <i class="fas fa-mountain text-indigo-500 text-xl"></i>
                 <h2 class="text-xl font-black text-slate-800 italic uppercase">室外雪场 / Outdoor</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-               <div class="cornell-card p-8">
-    <h3 class="text-xl font-black text-slate-800">绿葱坡滑雪场</h3>
-    <div class="flex items-center gap-2 mb-6">
-        <p class="text-[10px] text-slate-400 font-bold">恩施·巴东</p>
-        <span class="bg-orange-50 text-orange-600 text-[9px] font-black px-2 py-0.5 rounded-full border border-orange-100 flex items-center gap-1">
-            <i class="fas fa-wind scale-75"></i> 实时 <span id="temp-outdoor-1">--°C</span>
-        </span>
-    </div>
-    <div id="feed-绿葱坡滑雪场" class="space-y-4"></div>
-</div>
+                <div class="cornell-card p-8">
+                    <h3 class="text-xl font-black text-slate-800">绿葱坡滑雪场</h3>
+                    <div class="flex items-center gap-2 mb-6">
+                        <p class="text-[10px] text-slate-400 font-bold">恩施·巴东</p>
+                        <span class="bg-orange-50 text-orange-600 text-[9px] font-black px-2 py-0.5 rounded-full border border-orange-100 flex items-center gap-1">
+                            <i class="fas fa-wind scale-75"></i> 实时 <span id="temp-outdoor-1">--°C</span>
+                        </span>
+                    </div>
+                    <div id="feed-绿葱坡滑雪场" class="space-y-4"></div>
+                </div>
+                <div class="cornell-card p-8">
+                    <h3 class="text-xl font-black text-slate-800">桃花冲滑雪场</h3>
+                    <div class="flex items-center gap-2 mb-6">
+                        <p class="text-[10px] text-slate-400 font-bold">黄冈·英山</p>
+                        <span class="bg-orange-50 text-orange-600 text-[9px] font-black px-2 py-0.5 rounded-full border border-orange-100 flex items-center gap-1">
+                            <i class="fas fa-wind scale-75"></i> 实时 <span id="temp-outdoor-2">--°C</span>
+                        </span>
+                    </div>
+                    <div id="feed-桃花冲滑雪场" class="space-y-4"></div>
+                </div>
+                <div class="cornell-card p-8">
+                    <h3 class="text-xl font-black text-slate-800">伏牛山滑雪场</h3>
+                    <div class="flex items-center gap-2 mb-6">
+                        <p class="text-[10px] text-slate-400 font-bold">洛阳·栾川</p>
+                        <span class="bg-orange-50 text-orange-600 text-[9px] font-black px-2 py-0.5 rounded-full border border-orange-100 flex items-center gap-1">
+                            <i class="fas fa-wind scale-75"></i> 实时 <span id="temp-outdoor-3">--°C</span>
+                        </span>
+                    </div>
+                    <div id="feed-伏牛山滑雪场" class="space-y-4"></div>
+                </div>
+            </div>
         </section>
     </main>
 
