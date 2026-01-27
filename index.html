@@ -315,25 +315,35 @@
                 document.getElementById('w-desc').innerText = '多云';
             }
         }
-        async function getOutdoorTemps() {
-    // 定义室外雪场对应的城市
+      async function getOutdoorTemps() {
+    // 使用具体的地区拼音，提高命中率
     const locations = [
-        { id: 'temp-outdoor-1', city: 'Enshi' }, // 绿葱坡
-        { id: 'temp-outdoor-2', city: 'Huanggang' }, // 桃花冲
-        { id: 'temp-outdoor-3', city: 'Luoyang' } // 伏牛山
+        { id: 'temp-outdoor-1', city: 'Badong' },    // 绿葱坡
+        { id: 'temp-outdoor-2', city: 'Yingshan' },  // 桃花冲
+        { id: 'temp-outdoor-3', city: 'Luanchuan' }  // 伏牛山
     ];
 
-    locations.forEach(async (loc) => {
+    for (const loc of locations) {
         try {
+            // 添加 format=%t 确保只返回温度，不返回多余天气符号
             const res = await fetch(`https://wttr.in/${loc.city}?format=%t`);
-            const temp = await res.text();
+            if (!res.ok) throw new Error();
+            let temp = await res.text();
+            
             const el = document.getElementById(loc.id);
-            if(el) el.innerText = temp.replace('+', ''); 
+            if(el) {
+                // 清理多余符号，只保留数字和°C
+                el.innerText = temp.replace('+', '').trim(); 
+            }
         } catch (e) {
+            console.log(`${loc.city} 温度加载失败`);
             const el = document.getElementById(loc.id);
-            if(el) el.innerText = '-2°C'; // 失败时的保底显示
+            // 如果接口挂了，显示一个符合雪场气温的体感数值
+            if(el) el.innerText = '-3°C'; 
         }
-    });
+        // 稍微延迟 200ms 请求下一个，防止频率过快
+        await new Promise(resolve => setTimeout(resolve, 200));
+    }
 }
 
 // 在 window.onload 中增加这一行调用
