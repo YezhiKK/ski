@@ -6,6 +6,7 @@
     <title>SkiWuhan | 2026 拼车看板</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
@@ -82,7 +83,16 @@
             </div>
         </section>
     </main>
-
+<div class="max-w-6xl mx-auto px-6 mb-8">
+    <div class="bg-blue-50 border border-blue-100 p-4 rounded-2xl flex items-center gap-3">
+        <span class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs">
+            <i class="fas fa-bullhorn"></i>
+        </span>
+        <p class="text-xs font-bold text-blue-800">
+            安全提示：拼车请核实车主身份，建议购买滑雪意外险，祝大家平安丝滑！
+        </p>
+    </div>
+</div>
     <div id="publish-modal" class="hidden fixed inset-0 bg-slate-900/80 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
         <div class="bg-white rounded-[3rem] w-full max-w-md p-10 shadow-2xl relative">
             <h3 class="text-2xl font-black mb-8 italic text-slate-800 uppercase tracking-tighter">Post Trip</h3>
@@ -195,12 +205,14 @@ const G_REPO = "yezhikk/ski";
                     // 提取日期前两位
                     const dateTag = time.split(' ')[0] || "1.1";
 
-                    const card = `
-                        <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-3xl border border-transparent hover:border-blue-100 hover:bg-white transition-all group">
-                            <div class="date-box">
-                                <span class="text-[9px] font-black text-slate-400 uppercase leading-none mb-1">Date</span>
-                                <span class="text-[13px] font-black text-blue-600 leading-none">${dateTag}</span>
-                            </div>
+
+const card = `
+    <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-3xl ...">
+        <div class="date-box">
+            <i class="fas fa-skiing text-[10px] text-blue-400 mb-1"></i> <span class="text-[13px] font-black text-blue-600 leading-none">${dateTag}</span>
+        </div>
+        ...
+`;
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center gap-2 mb-1">
                                     <span class="seat-badge">${seats}</span>
