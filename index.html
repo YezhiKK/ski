@@ -11,20 +11,17 @@
         
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
         
-        /* 核心渐变背景 */
         .header-gradient { 
             background: radial-gradient(circle at top right, #1e40af, #0f172a); 
             position: relative; 
             overflow: hidden; 
         }
 
-        /* 雪花花纹背景 */
         .snow-pattern {
             background-image: url('https://www.transparenttextures.com/patterns/snow.png');
             background-repeat: repeat;
         }
 
-        /* 标题长条样式 */
         .section-banner {
             background: linear-gradient(90deg, #1e3a8a 0%, #1e40af 50%, #1e3a8a 100%);
             position: relative;
@@ -32,7 +29,6 @@
             border-radius: 1.5rem;
         }
 
-        /* 卡片悬浮 */
         .cornell-card {
             border-radius: 2rem;
             background: #ffffff;
@@ -46,7 +42,6 @@
             border-color: #3b82f6;
         }
 
-        /* 动画 */
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
@@ -70,7 +65,7 @@
     <div class="bg-red-600 text-white py-2 px-4 text-center sticky top-0 z-[100]">
         <p class="text-[10px] md:text-xs font-black tracking-widest uppercase">
             <i class="fas fa-exclamation-triangle mr-2"></i> 
-            安全声明：本平台仅提供拼车信息撮合。拼车属于民间互助行为，请务必核实对方身份，自行承担相关风险，建议出行前购买意外险。
+            安全声明：本平台仅提供拼车信息撮合。拼车属于民间互助行为，请务必核实对方身份，自行承担相关风险。
         </p>
     </div>
 
@@ -84,14 +79,10 @@
             <h1 class="text-7xl font-black italic tracking-tighter mb-4 uppercase drop-shadow-2xl">Ski <span class="text-blue-400">Wuhan</span></h1>
             <p class="text-blue-100/60 text-xs font-bold tracking-[0.5em] uppercase mb-12"> 武汉滑雪·全城拼车平台 </p>
             
-            <div class="grid grid-cols-2 gap-4 max-w-md mx-auto mb-12">
+            <div class="max-w-[160px] mx-auto mb-12">
                 <div class="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 text-center">
-                    <p class="text-[10px] text-blue-300 font-bold uppercase mb-1">今日发布</p>
-                    <p id="stat-count" class="text-3xl font-black italic">--</p>
-                </div>
-                <div class="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 text-center">
-                    <p class="text-[10px] text-blue-300 font-bold uppercase mb-1">今日浏览</p>
-                    <p id="stat-views" class="text-3xl font-black italic">--</p>
+                    <p class="text-[10px] text-blue-300 font-bold uppercase mb-1">今日活跃行程</p>
+                    <p id="stat-count" class="text-4xl font-black italic">--</p>
                 </div>
             </div>
 
@@ -184,10 +175,9 @@
         <div class="max-w-4xl mx-auto border-t border-white/10 pt-10">
             <p class="text-[11px] font-black tracking-[0.4em] uppercase mb-6 text-slate-400">SkiWuhan Information Service</p>
             <div class="text-[10px] leading-relaxed space-y-2 opacity-60">
-                <p>本站仅供交流展示，所有发布的信息真实性由发布者负责，本平台不对任何拼车过程中发生的纠纷、损害或违规行为承担连带责任。</p>
-                <p>未经许可，严禁将本站信息用于任何商业盈利目的。</p>
+                <p>本站仅供交流展示，所有发布的信息真实性由发布者负责，本平台不对任何拼车过程中发生的纠纷承担连带责任。</p>
             </div>
-            <p class="mt-8 text-xs font-bold text-slate-400">© 2026 SkiWuhan 保留所有权利。本平台拥有最终解释权。</p>
+            <p class="mt-8 text-xs font-bold text-slate-400">© 2026 SkiWuhan 保留所有权利。</p>
         </div>
     </footer>
 
@@ -272,14 +262,6 @@
         const G_REPO = "yezhikk/ski";
 
         function toggleModal(id) { document.getElementById(id).classList.toggle('hidden'); }
-
-        // 浏览量模拟器
-        function updateViews() {
-            let views = parseInt(localStorage.getItem('ski_views') || 2840);
-            views += Math.floor(Math.random() * 5); // 每次刷新随机涨一点
-            localStorage.setItem('ski_views', views);
-            document.getElementById('stat-views').innerText = views.toLocaleString() + "+";
-        }
 
         function contactOwner(name, wx) {
             if(!wx || wx === 'undefined') return;
@@ -374,7 +356,7 @@
 
         async function getWuhanWeather() {
             try {
-                const res = await fetch('https://wttr.in/Wuhan?format=j1');
+                const res = await fetch(`https://wttr.in/Wuhan?format=j1&t=${new Date().getTime()}`);
                 const data = await res.json();
                 const current = data.current_condition[0];
                 document.getElementById('w-temp').innerText = current.temp_C;
@@ -391,7 +373,6 @@
         window.onload = () => {
             getWuhanWeather();
             loadIssues();
-            updateViews();
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('date-input').value = today;
             document.getElementById('date-input').min = today;
